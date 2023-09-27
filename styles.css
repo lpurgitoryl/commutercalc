@@ -47,10 +47,45 @@
   .mainWrapper{
     height: 100%;
     width: calc(100% - 6rem);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    row-gap: 1rem;
+    column-gap: 1rem;
+
     margin-inline: auto;
   }
   section{
     background-color: aliceblue;
+    border-radius: 5px;
   } 
-  
+
+  .infoWraper{
+    background-color: rgb(0, 120, 224);
+    grid-column: 1 / 7;
+    grid-row: 1 / 4;
+  }
+  .btnWrapper{
+    background-color: rgb(0, 120, 224);
+    grid-column: 6/7;
+    grid-row: 4 ;
+  }
+
+  .mapWrapper{
+    background-color: rgb(0, 120, 224);
+    grid-column: 1/5;
+    grid-row: 5 /13;
+  }
+
+  .statsWrapper{
+    background-color: rgb(0, 120, 224);
+    grid-column: 5 / 7;
+    grid-row: 5 / 13;
+  }
+
+  footer{
+    margin-top: 1rem;
+  }
 
