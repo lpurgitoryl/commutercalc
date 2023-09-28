@@ -72,6 +72,10 @@
   .infoWraper{
     grid-column: 1 / 7;
     grid-row: 1 / 4;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
   }
   .btnWrapper{
     grid-column: 6/7;
