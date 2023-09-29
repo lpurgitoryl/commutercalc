@@ -37,9 +37,11 @@ function changeBG() {
         }
     }
 }
-
-// TODO: Styles in light mode
-// TODO: Mobile view
+// 
+// handle form
 // TODO: values for user innput from gov site, Locations autofill from google
 // TODO: 1) get form values 2) On calculate button -> verify values -> send api req to EPA site 3) parse responce 4) show google maps route 
-// TODO: 5) finish stats board ... DONE!!!!
+// TODO: 5) finish stats board 
+// TODO: Footer... DONE!!!!
+
+

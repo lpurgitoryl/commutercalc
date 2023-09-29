@@ -68,7 +68,7 @@
   }
   
   .slider {
-    background-color: #ccc;
+    background-color: #888;
     bottom: 0;
     cursor: pointer;
     left: 0;
@@ -127,6 +127,16 @@
     background-color: var(--sec-off-white);
     border-radius: 5px;
   } 
+  /* Might get ride of this... */
+  section{
+    box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.4);
+  }
+
+  section:hover{
+    transform: scale(1.01);
+  }
+
+  /* end */
 
   .submitBtn{
     width: 100%;
