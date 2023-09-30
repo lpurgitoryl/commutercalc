@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>CommuterCalc</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>CommuterCalc</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet" />
 
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
     <header id="header">
-        <nav class="headerNav">    
-        <a class="title"><img class="icon" width="40" height="40" src="CC_logo.svg"/> CommuterCalc</a> 
-        <div class="switchWrapper">
-            <label class="switch">
-                <input type="checkbox" id="checkbox" onclick="changeBG()">
-                <span class="slider round"></span>
-            </label>
-        </div>
+        <nav class="headerNav">
+            <a class="title"><img class="icon" width="40" height="40" src="CC_logo.svg" />
+                CommuterCalc</a>
+            <div class="switchWrapper">
+                <label class="switch">
+                    <input type="checkbox" id="checkbox" onclick="changeBG()" />
+                    <span class="slider round"></span>
+                </label>
+            </div>
         </nav>
     </header>
 
     <main class="main">
         <div class="mainWrapper">
             <section class="infoWraper">
-            <div>
                 <a class="text">Enter the following fields to calculate your commute cost!</a>
                 <form id="userInput">
-                
-                <div class="inputSec">
-                    <div>
-                    <label for="make">Make</label>
+                    <div class="inputSec">
+                        <!-- <div> -->
+                        <!-- <label for="make">Make</label>
                         <select name="make" id="make">
                             <option value="none" selected disabled hidden>Make of your vehicle</option>
                         <option value="honda">Honda</option>
@@ -49,14 +49,18 @@
                         <option value="none" selected disabled hidden>Model of your vehicle</option>
                     <option value="civic">civic</option>
                     </select>
-                    </div>
+                    </div> -->
 
-                    <div>
-                    <label for="year">Year</label>
-                    <input type="number" id="year" name="year" min="1950" max="2023" placeholder="Year" />
-                    </div>
+                        <!-- <div> -->
+                        <label for="year">Year</label>
+                        <select name="year" id="year">
+                            <option value="none" selected disabled hidden>
+                                Year
+                            </option>
+                        </select>
+                        <!-- </div> -->
 
-                    <div>
+                        <!-- <div>
                     <label for="locA">Location A</label>
                     <input type="text" id="locA" name="locA" placeholder="Enter location A" />
                     </div>
@@ -64,12 +68,11 @@
                     <div>
                     <label for="locB">Location B</label>
                     <input type="text" id="locB" name="locB" placeholder="Enter location B" />
+                    </div> -->
                     </div>
 
-                </div>
-
-                <div class="inputSec">
-                    <div>Round trip?
+                    <div class="inputSec">
+                        <!-- <div>Round trip?
                         <label for="choice-radio">Yes</label>
                         <input type="radio" name="choice-radio">
 
@@ -80,30 +83,29 @@
                     <div>
                     <label for="trips">Number of trips per week</label>
                     <input type="number" id="trips" name="trips" min="1" max="" placeholder="Trips per week" />
+                    </div> -->
                     </div>
-                </div>
-
                 </form>
-            </div>
+
             </section>
 
-
             <section class="btnWrapper">
-                <button type="submit" class="submitBtn">Calculate!</button>
+                <button type="submit" form="userInput" class="submitBtn">
+                    Calculate!
+                </button>
             </section>
 
             <section class="mapWrapper">
-                <img style="height: 100%; width: 100%; border-radius: 5px;" src="temp_map.jpg"/>
+                <img style="height: 100%; width: 100%; border-radius: 5px" src="temp_map.jpg" />
             </section>
-            
+
             <section class="statsWrapper">stats sec</section>
         </div>
     </main>
 
-    <footer id="footer">
-        Footer sec 
-    </footer>
-        
-        <script src="index.js" async defer></script>
-    </body>
+    <footer id="footer">Footer sec</footer>
+
+    <script src="index.js" async defer></script>
+</body>
+
 </html>
