@@ -164,6 +164,15 @@
     column-gap: 1rem;
   }
 
+   @media screen and (max-width: 400px){
+    .mainWrapper{
+      width: 100%;
+    }
+    .title {
+      font-size: 1.25rem;
+    }
+  }
+
   .inputSec{
     display: flex;
     flex-wrap: wrap;
@@ -179,12 +188,16 @@
     align-items: center;
   }
 
-  select {
-    width: 12rem;
-    height: 2rem;
+  select, input[type=text], input[type=choice-radio], input[type=number] {
+    width: 18rem;
+    height: 2.5rem;
     border-radius: 0.5rem;
     border: 0px;
     font-family: inherit;
+  }
+
+  select:focus, [type=text]:focus {
+    background-color: rgba(232, 249, 255, 0.473);
   }
 
   .infoWrapper{

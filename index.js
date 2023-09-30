@@ -1,3 +1,9 @@
+// Global Vars
+const yearDD = document.getElementById("year"); 
+const makeDD = document.getElementById("make"); 
+const yearsURL = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/year";
+const form = document.querySelector('form');
+
 // handle site backgorund color change
 function changeBG() {
     var checkBox = document.getElementById("checkbox");
@@ -6,13 +12,13 @@ function changeBG() {
     var section = document.getElementsByTagName("section")
     if (checkBox.checked){
         document.body.style.backgroundColor = "var(--bg-black)";
-        document.body.style.color = "white";
+        // document.body.style.color = "white";
 
         header.style.color = "white";
         header.style.backgroundColor = "var(--sec-grey)";
 
-        footer.style.color = "white";
-        footer.style.backgroundColor = "var(--sec-grey)";
+        // footer.style.color = "white";
+        // footer.style.backgroundColor = "var(--sec-grey)";
 
         for (let i = 0; i < section.length; i++) {
             section[i].style.color = "white";
@@ -21,13 +27,13 @@ function changeBG() {
 
     } else {
         document.body.style.backgroundColor = "var(--bg-white)";
-        document.body.style.color = "black";
+        // document.body.style.color = "black";
 
         header.style.color = "black";
         header.style.backgroundColor = "var(--sec-off-white)";
 
-        footer.style.color = "black";
-        footer.style.backgroundColor = "var(--sec-off-white)";
+        // footer.style.color = "black";
+        // footer.style.backgroundColor = "var(--sec-off-white)";
 
         for (let i = 0; i < section.length; i++) {
             section[i].style.color = "black";
@@ -43,18 +49,6 @@ function changeBG() {
 // TODO: Footer... DONE!!!!
 
 // event listner bc i like them better lowks
-const form = document.querySelector("#userInput");
-form.addEventListener("submit", function (event) {
-	// stop form submission
-	event.preventDefault();
-
-    // key value of forms
-    var values = new FormData(form);
-	// validate the form
-    console.log()
-});
-
-const yearsURL = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/year";
 
 async function fetchJSONYears(request) {
     try {
@@ -68,19 +62,28 @@ async function fetchJSONYears(request) {
 
       const jsonData = await response.json();
 
-      // auto fill in year options
-      const yearDD = document.getElementById("year");   
+      // auto fill in year options  
       for(var i in jsonData.menuItem){
-        console.log(jsonData.menuItem[i].value);
         var newOption = new Option(jsonData.menuItem[i].text,jsonData.menuItem[i].value);
-
         yearDD.add(newOption,undefined);
       }
+
+      console.log("Years added");
 
     } catch (error) {
       console.error("Error:", error);
       alert("Error:", error);
     }
   }
+
+document.getElementById("year").onchange = console.log('changed');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const formData = new FormData(form)
+    for (const pair of formData.entries()) {
+      console.log(pair)
+    }
+  })
 
   fetchJSONYears(yearsURL)

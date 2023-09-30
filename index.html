@@ -35,15 +35,6 @@
                 <a class="text">Enter the following fields to calculate your commute cost!</a>
                 <form id="userInput">
                     <div class="inputSec">
-                        <!-- 
-                    <div>
-                    <label for="model">Model</label>
-                    <select name="model" id="model">
-                        <option value="none" selected disabled hidden>Model of your vehicle</option>
-                    <option value="civic">civic</option>
-                    </select>
-                    </div> 
-                -->
 
                         <div class="inputField">
                             <label for="year">Year</label>
@@ -62,31 +53,42 @@
                             </select>
                         </div>
 
-                        <!-- <div>
-                    <label for="locA">Location A</label>
-                    <input type="text" id="locA" name="locA" placeholder="Enter location A" />
+                        <div class="inputField">
+                            <label for="model">Model</label>
+                            <select name="model" id="model">
+                                <option value="none" selected disabled hidden>Model of your vehicle</option>
+                                <option value="civic">civic</option>
+                            </select>
+                        </div>
+
+                        <div class="inputField">
+                            <label for="locA">Location A</label>
+                            <input type="text" id="locA" name="locA" placeholder="Enter location A" />
+                        </div>
+
+                        <div class="inputField">
+                            <label for="locB">Location B</label>
+                            <input type="text" id="locB" name="locB" placeholder="Enter location B" />
+                        </div>
+
+                        <div class="inputField">Round trip?
+                            <div>
+                                <label for="choice-radio">Yes</label>
+                                <input type="radio" name="choice-radio">
+
+                                <label for="choice-radio">No</label>
+                                <input type="radio" name="choice-radio">
+                            </div>
+                        </div>
+
+                        <div class="inputField">
+                            <label for="trips">Number of trips per week</label>
+                            <input type="number" id="trips" name="trips" min="1" step="1" max="365"
+                                placeholder="Trips per week" />
+                        </div>
+
                     </div>
 
-                    <div>
-                    <label for="locB">Location B</label>
-                    <input type="text" id="locB" name="locB" placeholder="Enter location B" />
-                    </div> -->
-                    </div>
-
-                    <div class="inputSec">
-                        <!-- <div>Round trip?
-                        <label for="choice-radio">Yes</label>
-                        <input type="radio" name="choice-radio">
-
-                        <label for="choice-radio">No</label>
-                        <input type="radio" name="choice-radio">
-                    </div>
-
-                    <div>
-                    <label for="trips">Number of trips per week</label>
-                    <input type="number" id="trips" name="trips" min="1" max="" placeholder="Trips per week" />
-                    </div> -->
-                    </div>
                 </form>
 
             </section>
