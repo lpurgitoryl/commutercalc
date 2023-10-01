@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet" />
 
-    
+
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
 
@@ -54,7 +54,7 @@
                             <label for="make">Make</label>
                             <select name="make" id="make" disabled>
                                 <option value="none" selected disabled hidden>Make of your vehicle</option>
-                                <option value="honda">Honda</option>
+
                             </select>
                         </div>
 
@@ -62,18 +62,30 @@
                             <label for="model">Model</label>
                             <select name="model" id="model" disabled>
                                 <option value="none" selected disabled hidden>Model of your vehicle</option>
-                                <option value="civic">civic</option>
+
                             </select>
                         </div>
 
                         <div class="inputField">
                             <label for="locA">Location A</label>
-                            <input type="text" id="locA" name="locA" placeholder="Enter location A" />
+                            <div>
+                                <input type="text" list="locationA" id="locA" name="locA"
+                                    placeholder="Enter location A" />
+                                <datalist id="locationA">
+
+                                </datalist>
+                            </div>
                         </div>
 
                         <div class="inputField">
                             <label for="locB">Location B</label>
-                            <input type="text" id="locB" name="locB" placeholder="Enter location B" />
+                            <div>
+                                <input type="text" id="locB" list="locationB" name="locB"
+                                    placeholder="Enter location B" />
+                                <datalist id="locationB">
+
+                                </datalist>
+                            </div>
                         </div>
 
                         <div class="inputField">Round trip?
@@ -104,7 +116,7 @@
                 </button>
             </section>
 
-            <section class="mapWrapper">                
+            <section class="mapWrapper">
                 <!-- <div id='map' style="width: auto ; height: 300px;"></div>
                 <script>
                 mapboxgl.accessToken = 'pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w';
