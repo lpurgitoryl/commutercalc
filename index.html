@@ -12,6 +12,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet" />
 
+    
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+
+
     <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -47,7 +52,7 @@
 
                         <div class="inputField">
                             <label for="make">Make</label>
-                            <select name="make" id="make">
+                            <select name="make" id="make" disabled>
                                 <option value="none" selected disabled hidden>Make of your vehicle</option>
                                 <option value="honda">Honda</option>
                             </select>
@@ -55,7 +60,7 @@
 
                         <div class="inputField">
                             <label for="model">Model</label>
-                            <select name="model" id="model">
+                            <select name="model" id="model" disabled>
                                 <option value="none" selected disabled hidden>Model of your vehicle</option>
                                 <option value="civic">civic</option>
                             </select>
@@ -99,8 +104,17 @@
                 </button>
             </section>
 
-            <section class="mapWrapper">
-                <img style="height: 100%; width: 100%; border-radius: 5px" src="temp_map.jpg" />
+            <section class="mapWrapper">                
+                <!-- <div id='map' style="width: auto ; height: 300px;"></div>
+                <script>
+                mapboxgl.accessToken = 'pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w';
+                const mapp = new mapboxgl.Map({
+                    container: 'map', // container ID
+                    style: 'mapbox://styles/mapbox/streets-v12', // style URL
+                    center: [-118.242766, 34.053691], // starting position [lng, lat]
+                    zoom: 9, // starting zoom
+                });
+                </script> -->
             </section>
 
             <section class="statsWrapper">stats sec</section>
