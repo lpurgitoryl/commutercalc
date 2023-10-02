@@ -8,6 +8,7 @@ const yearsURL = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/year";
 var tempYear = new Date().getFullYear().toString();
 console.log(tempYear);
 var makeURL = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/make?year=";
+var modelURL = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/model?year=";
 const form = document.querySelector("form");
 const publicToken =
   "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
@@ -200,7 +201,12 @@ yearDD.addEventListener("change", (e) => {
   e.preventDefault();
   tempYear = yearDD.value;
   console.log(yearDD.value);
+  yearSelected = true;
 
+  if(makeSelected){ // do not enable model until year and model values are changed
+    modelDD.disabled = false;
+    fetchJSON(modelURL + tempYear + "&make=" + makeDD.value, modelDD);
+  }
   // if year and make has been selected enable model drop down and options
 });
 
@@ -208,6 +214,10 @@ makeDD.addEventListener("change", (e) => {
   e.preventDefault();
   console.log(makeDD.value);
   makeSelected = true;
+  if(yearSelected){ // do not enable model until year and model values are changed
+    modelDD.disabled = false;
+    fetchJSON(modelURL + tempYear + "&make=" + makeDD.value, modelDD);
+  }
 });
 
 locaAtext.addEventListener("input", (e) => {
@@ -225,10 +235,9 @@ form.addEventListener("submit", (e) => {
 });
 
 // MAIN AREA
-// session uuid
 checkUUID();
 checklocalTheme();
-// populate drop downs with most recent year and makes from goverment api
+// populate drop downs with most recent year and makes from goverment api, model is fetched when both year and make has been entered
 fetchJSON(yearsURL, yearDD);
 fetchJSON(makeURL + tempYear, makeDD);
 
