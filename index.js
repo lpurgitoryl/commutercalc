@@ -231,6 +231,10 @@ locaBtext.addEventListener("input", (e) => {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const formData = new FormData(form);
+  // Display the key/value pairs
+  for (const pair of formData.entries()) {
+    console.log(`${pair[0]}, ${pair[1]}`);
+  }
   // validateData(formData);
 });
 
