@@ -14,6 +14,21 @@ const publicToken =
   "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
 var yearSelected = false;
 var makeSelected = false;
+
+// MAPBOX MAP OBJECT
+// ! uncomment when done with form
+// map deatils
+// mapboxgl.accessToken = publicToken;
+// const map = new mapboxgl.Map({
+// container: 'map',
+// // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+// style: 'mapbox://styles/mapbox/streets-v12',
+// center: [-79.4512, 43.6568],
+// zoom: 13
+// });
+
+//
+
 // created session UUID
 function checkUUID() {
   if (localStorage.getItem("uuid") == null) {
@@ -195,6 +210,30 @@ async function fetchJSON(request, dropDown) {
   }
 }
 
+function validateForm(formData){
+  // round_trip and number of trips will always have a value selected (unless someone changes the html on purpose)
+  // year, make, model will have "none" when no selection has been made
+  // Display the key/value pairs
+  var cont = true;
+  var errorMsg = document.querySelector(".error");
+  
+  for (const pair of formData.entries()) {
+    // console.log(`${pair[0]} , ${pair[1]}`);
+    if(!pair[1] || pair[1] == "none"){
+        console.log("EMPTY FIELD");
+        cont = false;
+        var temp = document.getElementById(pair[0]);
+        console.log(temp);
+        temp.style.border = '2px solid red';
+        errorMsg.style.display = 'flex';
+        
+    }
+    
+  }
+
+  return cont;
+}
+
 // EVENT LISTENER SECTIONS
 
 yearDD.addEventListener("change", (e) => {
@@ -231,11 +270,46 @@ locaBtext.addEventListener("input", (e) => {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const formData = new FormData(form);
-  // Display the key/value pairs
-  for (const pair of formData.entries()) {
-    console.log(`${pair[0]}, ${pair[1]}`);
-  }
-  // validateData(formData);
+  // validation
+  validateForm(formData);
+  // ! this for loop works uncomment when done with form
+  // for (const pair of formData.entries()) {
+
+  //   if(pair[0] == 'locA'){
+  //     console.log(`${pair[0]}, ${pair[1]}`);
+  //     var origin  = new MapboxDirections({
+  //       accessToken: publicToken,
+  //       controls : {
+  //         inputs: false
+  //       } ,
+  //       interactive: false,
+  //       profile: 'mapbox/driving-traffic'
+  //     });
+  //     origin = origin.setOrigin(pair[1]);
+  //     map.addControl(origin);
+  //   } 
+  //   else if(pair[0] == 'locB'){
+  //     console.log(`${pair[0]}, ${pair[1]}`);
+  //     var destination  = new MapboxDirections({
+  //       accessToken: publicToken,
+  //       controls : false, 
+  //       interactive: false,
+  //       profile: 'mapbox/driving-traffic'
+  //     });
+  //     destination = destination.setDestination(pair[1]);
+  //     console.log(destination)
+  //     map.addControl(destination);
+  //   }
+  // }
+
+  // var directionsPopup = document.getElementsByClassName("mapbox-directions-route-summary");
+  // console.log(directionsPopup);
+  // console.log(directionsPopup.item(0));
+
+    // TODO: finalize form with validation
+    // if anything is blank error
+    // could fix if i just put a default location to search
+    // rn im trying it as if no errors will happen
 });
 
 // MAIN AREA
@@ -251,12 +325,7 @@ fetchJSON(makeURL + tempYear, makeDD);
 // TODO: Footer... DONE!!!!
 
 // TODO: !!!!! will need for error handling of invalid combination of year make and model
-// function validateData(){
-//     for (const pair of formData.entries()) {
-//         console.log(pair);
-//       }
-//     return ;
-// }
+
 
 // !: these event listers were for testing input for search suggestions
 // locaAtext.addEventListener("input", (e) => {

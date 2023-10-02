@@ -122,6 +122,17 @@
     
   }
 
+  .error{
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    font-size: 1.25rem;
+    margin: 1.2rem;
+    color: red;
+    font-style: normal ;
+    display: none;
+  }
+
   section{
     transition: background-color .5s;
     background-color: var(--sec-off-white);
@@ -145,12 +156,12 @@
     border-radius: 25px;
     transition-duration: 0.4s;
     background-color: white;
-    border: 4px solid red;
+    border: 4px solid rgb(3, 255, 3);
     font-size: 1.5rem;
   }
 
   .submitBtn:hover {
-    background-color: red; /* Green */
+    background-color: rgb(3, 255, 3); /* Green */
     color: white;
   }
 

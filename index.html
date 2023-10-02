@@ -21,6 +21,8 @@
 </head>
 
 <body>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" type="text/css">
     <header id="header">
         <nav class="headerNav">
             <a class="title"><img class="icon" width="40" height="40" src="CC_logo.svg" />
@@ -38,13 +40,15 @@
         <div class="mainWrapper">
             <section class="infoWraper">
                 <a class="text">Enter the following fields to calculate your commute cost!</a>
+                <a class="error">Please revise the following fields.</a>
+                
                 <form id="userInput">
                     <div class="inputSec">
 
                         <div class="inputField">
                             <label for="year">Year</label>
                             <select name="year" id="year">
-                                <option value="none" selected disabled hidden>
+                                <option value="none" selected hidden>
                                     Year of your vehicle
                                 </option>
                             </select>
@@ -53,7 +57,7 @@
                         <div class="inputField">
                             <label for="make">Make</label>
                             <select name="make" id="make">
-                                <option value="none" selected disabled hidden>Make of your vehicle</option>
+                                <option value="none" selected hidden>Make of your vehicle</option>
 
                             </select>
                         </div>
@@ -61,7 +65,7 @@
                         <div class="inputField">
                             <label for="model">Model</label>
                             <select name="model" id="model" disabled>
-                                <option value="none" selected disabled hidden>Model of your vehicle</option>
+                                <option value="none" selected hidden>Model of your vehicle</option>
 
                             </select>
                         </div>
@@ -69,8 +73,8 @@
                         <div class="inputField">
                             <label for="locA">Location A</label>
                             <div>
-                                <input type="text" list="locationA" id="locA" name="locA"
-                                    placeholder="Enter location A" />
+                                    <input type="text" list="locationA" id="locA" name="locA"
+                                    placeholder="e.g University of California Riverside" />
                                 <datalist id="locationA">
 
                                 </datalist>
@@ -81,7 +85,7 @@
                             <label for="locB">Location B</label>
                             <div>
                                 <input type="text" id="locB" list="locationB" name="locB"
-                                    placeholder="Enter location B" />
+                                    placeholder="e.g SoFi Stadium" />
                                 <datalist id="locationB">
 
                                 </datalist>
@@ -90,18 +94,18 @@
 
                         <div class="inputField">Round trip?
                             <div>
-                                <label for="choice-radio">Yes</label>
-                                <input type="radio" name="choice-radio" id="yes" value="yes" checked>
+                                <label for="yes">Yes</label>
+                                <input type="radio" name="round_trip" id="yes" value="yes" checked>
 
-                                <label for="choice-radio">No</label>
-                                <input type="radio" name="choice-radio" id="no" value="no">
+                                <label for="no">No</label>
+                                <input type="radio" name="round_trip" id="no" value="no">
                             </div>
                         </div>
 
                         <div class="inputField">
-                            <label for="trips">Number of trips per week</label>
-                            <input type="number" id="trips" name="trips" min="1" step="1" max="365"
-                                value="5" />
+                            <label for="trips">Number of trips</label>
+                            <input type="number" id="trips" name="trips" min="1" step="1" max="1000000"
+                                value="1" />
                         </div>
 
                     </div>
@@ -117,7 +121,8 @@
             </section>
 
             <section class="mapWrapper">
-                <!-- <div id='map' style="width: auto ; height: 300px;"></div>
+                <!-- <div id='map' style="width: auto ; height: 600px;"></div> -->
+                <!-- 
                 <script>
                 mapboxgl.accessToken = 'pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w';
                 const mapp = new mapboxgl.Map({
