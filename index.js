@@ -14,20 +14,20 @@ const publicToken =
   "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
 var yearSelected = false;
 var makeSelected = false;
-
+var travelHours = "";
+var travelMins = "";
+var travelDist = ""; // miles
+var travelMetrics = document.getElementById("travel_metrics");
+var metricItems = ["rtt", "gas_used", "co2" ];
 // MAPBOX MAP OBJECT
-// ! uncomment when done with form
-// map deatils
-// mapboxgl.accessToken = publicToken;
-// const map = new mapboxgl.Map({
-// container: 'map',
-// // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-// style: 'mapbox://styles/mapbox/streets-v12',
-// center: [-79.4512, 43.6568],
-// zoom: 13
-// });
-
-//
+mapboxgl.accessToken = publicToken;
+const map = new mapboxgl.Map({
+container: 'map',
+// Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+style: 'mapbox://styles/mapbox/streets-v12',
+center: [-118.242766, 34.053691], // los angeles
+zoom: 13
+});
 
 // created session UUID
 function checkUUID() {
@@ -41,6 +41,7 @@ function checkUUID() {
 
 // handle site backgorund color change
 function changeBG() {
+  console.log("changing theme")
   var checkBox = document.getElementById("checkbox");
   var header = document.getElementById("header");
   // var footer = document.getElementById("footer");
@@ -125,18 +126,11 @@ function addSuggestions(locationElement, suggestionJson) {
       suggestionJson[i].place_name,
       suggestionJson[i].place_name
     );
-    console.log("added this suggestion");
-    console.log(newOp);
+    console.log("added suggestions");
     locationElement.appendChild(newOp);
   }
 }
 
-// ? not sure if i should finish this
-// function removeSuggestions(locationElement,suggestionJson){
-//     if(locationElement.options.length == 0){
-//       return;
-//     }
-// }
 
 // use user input from location text element to make an api call for location suggestions
 // formats text and returned json response
@@ -234,6 +228,60 @@ function validateForm(formData){
   return cont;
 }
 
+function addOriginAndDestination(formData){
+  for (const pair of formData.entries()) {
+    if(pair[0] == 'locA'){
+      console.log(`grabbed this location: ${pair[0]}, ${pair[1]}`);
+      var origin  = new MapboxDirections({
+        accessToken: publicToken,
+        controls : {
+          inputs: false
+        } ,
+        interactive: false,
+        profile: 'mapbox/driving-traffic'
+      });
+      origin = origin.setOrigin(pair[1]);
+      map.addControl(origin);
+    } 
+    else if(pair[0] == 'locB'){
+      console.log(`grabbed this location: ${pair[0]}, ${pair[1]}`);
+      var destination  = new MapboxDirections({
+        accessToken: publicToken,
+        controls : false, 
+        interactive: false,
+        profile: 'mapbox/driving-traffic'
+      });
+      destination = destination.setDestination(pair[1]);
+      map.addControl(destination);
+    }
+  }
+}
+
+function grabRouteDeatilsFromPopup(){
+    //grab inner html of directions
+    var directionsPopup = document.getElementsByClassName("mapbox-directions-route-summary");
+    // time in h1 div is formatted as '{numberhere}h_{number here}min'
+    var timeElement = directionsPopup.item(0).getElementsByTagName('h1')[0].textContent;
+    travelHours = timeElement.split("h ")[0];
+    console.log(`hours ${travelHours}`);
+    travelMins = timeElement.split("h ")[1].split('min')[0];
+    console.log(`minutes ${travelMins}`);
+    var distanceElement = directionsPopup.item(0).getElementsByTagName('span')[0].textContent;
+    travelDist = distanceElement.split("mi")[0];
+    console.log(`distance in mi ${travelDist}`);
+}
+
+function statsInfo(){
+  for(var x in metricItems){
+    var temp = document.getElementById(metricItems[x]);
+    if(temp.id == 'rtt'){
+      temp.textContent =  `travel time ${( ( ( parseInt(travelHours) * 60) + (parseInt(travelMins) ) ) * 2 ) / 60 }`;
+    }
+    
+
+  }
+  console.log('stats');
+}
 // EVENT LISTENER SECTIONS
 
 yearDD.addEventListener("change", (e) => {
@@ -271,45 +319,21 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   const formData = new FormData(form);
   // validation
-  validateForm(formData);
-  // ! this for loop works uncomment when done with form
-  // for (const pair of formData.entries()) {
+  var cont = validateForm(formData);
+   // if not everything is filled, in don't update the map
+  if (!cont){
+    return;
+  }
+  // implies cont is true and can update the map
+  addOriginAndDestination(formData);
 
-  //   if(pair[0] == 'locA'){
-  //     console.log(`${pair[0]}, ${pair[1]}`);
-  //     var origin  = new MapboxDirections({
-  //       accessToken: publicToken,
-  //       controls : {
-  //         inputs: false
-  //       } ,
-  //       interactive: false,
-  //       profile: 'mapbox/driving-traffic'
-  //     });
-  //     origin = origin.setOrigin(pair[1]);
-  //     map.addControl(origin);
-  //   } 
-  //   else if(pair[0] == 'locB'){
-  //     console.log(`${pair[0]}, ${pair[1]}`);
-  //     var destination  = new MapboxDirections({
-  //       accessToken: publicToken,
-  //       controls : false, 
-  //       interactive: false,
-  //       profile: 'mapbox/driving-traffic'
-  //     });
-  //     destination = destination.setDestination(pair[1]);
-  //     console.log(destination)
-  //     map.addControl(destination);
-  //   }
-  // }
+  // LOL this is hacky but it works 
+  // I could use another api call with lang/lat for origin/dest but ... less straight forward
+  // wait for container to spawn, then get data from DOM
+  setTimeout(grabRouteDeatilsFromPopup(), 5000);
+  statsInfo();
 
-  // var directionsPopup = document.getElementsByClassName("mapbox-directions-route-summary");
-  // console.log(directionsPopup);
-  // console.log(directionsPopup.item(0));
 
-    // TODO: finalize form with validation
-    // if anything is blank error
-    // could fix if i just put a default location to search
-    // rn im trying it as if no errors will happen
 });
 
 // MAIN AREA

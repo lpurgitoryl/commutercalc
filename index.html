@@ -121,20 +121,20 @@
             </section>
 
             <section class="mapWrapper">
-                <!-- <div id='map' style="width: auto ; height: 600px;"></div> -->
-                <!-- 
-                <script>
-                mapboxgl.accessToken = 'pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w';
-                const mapp = new mapboxgl.Map({
-                    container: 'map', // container ID
-                    style: 'mapbox://styles/mapbox/streets-v12', // style URL
-                    center: [-118.242766, 34.053691], // starting position [lng, lat]
-                    zoom: 9, // starting zoom
-                });
-                </script> -->
+                <div id='map' style="width: auto ; height: 600px;"></div>
             </section>
 
-            <section class="statsWrapper">stats sec</section>
+            <section class="statsWrapper">
+                <a class="text">Commute Information!</a>
+                <ul id="travel_metrics">
+                    <li id="rtt"></li>
+                    <li id="gas_used"></li>
+                    <li id="co2"></li>
+                    <li id="time"></li>
+                    <li id="total_distance"></li>
+                    <li id="year_metrics"></li>
+                </ul>
+            </section>
         </div>
     </main>
 
