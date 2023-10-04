@@ -261,23 +261,36 @@ function grabRouteDeatilsFromPopup(){
     //grab inner html of directions
     var directionsPopup = document.getElementsByClassName("mapbox-directions-route-summary");
     // time in h1 div is formatted as '{numberhere}h_{number here}min'
+
     var timeElement = directionsPopup.item(0).getElementsByTagName('h1')[0].textContent;
-    travelHours = timeElement.split("h ")[0];
-    console.log(`hours ${travelHours}`);
-    travelMins = timeElement.split("h ")[1].split('min')[0];
-    console.log(`minutes ${travelMins}`);
+    // deal with if there is no hour
+    console.log(timeElement)
+    if(timeElement.includes("h ")){
+      travelHours = timeElement.split("h ")[0];
+      console.log(`hours ${travelHours}`);
+      travelMins = timeElement.split("h ")[1].split('min')[0];
+      console.log(`minutes ${travelMins}`);
+    }else{
+      travelHours = "";
+      travelMins = timeElement.split('min')[0];
+      console.log(`minutes ${travelMins}`);
+    }
+
     var distanceElement = directionsPopup.item(0).getElementsByTagName('span')[0].textContent;
     travelDist = distanceElement.split("mi")[0];
-    console.log(`distance in mi ${travelDist}`);
+    console.log(`distance in mi ${travelDist}`);    
 }
 
 function statsInfo(){
   for(var x in metricItems){
     var temp = document.getElementById(metricItems[x]);
     if(temp.id == 'rtt'){
-      temp.textContent =  `travel time ${( ( ( parseInt(travelHours) * 60) + (parseInt(travelMins) ) ) * 2 ) / 60 }`;
+      if(travelHours != ""){
+      temp.textContent =  `travel time: ${Math.round( ( (parseInt(travelHours)*2*60) + (parseInt(travelMins)*2) / 60 ) )  } hour ${Math.round( ( (parseInt(travelHours)*2*60) + (parseInt(travelMins)*2) % 60 ) ) } min`;
+      }else{
+        temp.textContent =  `travel time: ${Math.round( ( (parseInt(travelMins)*2) / 60 ) ) } hour ${Math.round( (parseInt(travelMins)*2) % 60 )  } min`;
+      }
     }
-    
 
   }
   console.log('stats');
