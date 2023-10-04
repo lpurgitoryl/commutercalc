@@ -6,7 +6,6 @@ const locaAtext = document.getElementById("locA");
 const locaBtext = document.getElementById("locB");
 const yearsURL = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/year";
 var tempYear = new Date().getFullYear().toString();
-console.log(tempYear);
 var makeURL = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/make?year=";
 var modelURL = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/model?year=";
 const form = document.querySelector("form");
@@ -19,6 +18,7 @@ var travelMins = "";
 var travelDist = ""; // miles
 var travelMetrics = document.getElementById("travel_metrics");
 var metricItems = ["rtt", "gas_used", "co2" ];
+var vehicleData = "";
 // MAPBOX MAP OBJECT
 mapboxgl.accessToken = publicToken;
 const map = new mapboxgl.Map({
@@ -174,7 +174,7 @@ async function getSuggestions(text, locationInput) {
   }
 }
 
-async function fetchJSON(request, dropDown) {
+async function fetchJSONDD(request, dropDown) {
   try {
     const response = await fetch(request, {
       headers: {
@@ -198,6 +198,70 @@ async function fetchJSON(request, dropDown) {
     }
 
     console.log("options added for " + dropDown.id);
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error:", error);
+  }
+}
+
+async function getVehicleInfo() {
+  try {
+    const response = await fetch(
+    "https://www.fueleconomy.gov/ws/rest/vehicle/menu/options?year=" + tempYear +"&make="+ makeDD.value + "&model=" + modelDD.value,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+
+    const jsonData = await response.json();
+    var tempId = "";
+    if(jsonData.menuItem.length > 1){
+      console.log(jsonData.menuItem[0].value); // this is the car ID, grab first version off list... they are gonna have similar MPG most likley
+      tempId=jsonData.menuItem[0].value;
+    }
+    else{
+      console.log(jsonData.menuItem.value); // this is the car ID
+      tempId=jsonData.menuItem.value;
+    }
+    
+
+    // then make call to find call id
+    const vehicleInfo = await fetch(
+      "https://www.fueleconomy.gov/ws/rest/vehicle/" + tempId,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+       //usefull keys are comb08 - combined MPG, co2TailpipeGpm- tailpipe CO2 in grams/mile, id - vehicle record id
+      const vehicleJSON = await vehicleInfo.json();
+      vehicleData = vehicleJSON;
+      console.log(vehicleData);
+     
+
+    // parse data
+
+    for(var x in metricItems){
+      var temp = document.getElementById(metricItems[x]);
+      if(temp.id == 'rtt'){
+        if(travelHours != ""){
+        temp.textContent =  `travel time: ${Math.round( ( (parseInt(travelHours)*2*60) + (parseInt(travelMins)*2) / 60 ) )  } hour ${Math.round( ( (parseInt(travelHours)*2*60) + (parseInt(travelMins)*2) % 60 ) ) } min`;
+        }else{
+          temp.textContent =  `travel time: ${Math.round( ( (parseInt(travelMins)*2) / 60 ) ) } hour ${Math.round( (parseInt(travelMins)*2) % 60 )  } min`;
+        }
+      }
+      if(temp.id == 'gas_used'){
+        temp.textContent = `${(parseInt(travelDist) * 2)/ parseInt(vehicleData.comb08) } gallons of gas used` ;
+        console.log('here');
+      }
+      if(temp.id == 'co2'){
+        temp.textContent = `${((parseInt(travelDist) * 2)) * parseInt(vehicleData.co2TailpipeGpm)} co2 released`;
+      }
+    }
+    
   } catch (error) {
     console.error("Error:", error);
     alert("Error:", error);
@@ -282,17 +346,7 @@ function grabRouteDeatilsFromPopup(){
 }
 
 function statsInfo(){
-  for(var x in metricItems){
-    var temp = document.getElementById(metricItems[x]);
-    if(temp.id == 'rtt'){
-      if(travelHours != ""){
-      temp.textContent =  `travel time: ${Math.round( ( (parseInt(travelHours)*2*60) + (parseInt(travelMins)*2) / 60 ) )  } hour ${Math.round( ( (parseInt(travelHours)*2*60) + (parseInt(travelMins)*2) % 60 ) ) } min`;
-      }else{
-        temp.textContent =  `travel time: ${Math.round( ( (parseInt(travelMins)*2) / 60 ) ) } hour ${Math.round( (parseInt(travelMins)*2) % 60 )  } min`;
-      }
-    }
-
-  }
+  getVehicleInfo();
   console.log('stats');
 }
 // EVENT LISTENER SECTIONS
@@ -305,7 +359,7 @@ yearDD.addEventListener("change", (e) => {
 
   if(makeSelected){ // do not enable model until year and model values are changed
     modelDD.disabled = false;
-    fetchJSON(modelURL + tempYear + "&make=" + makeDD.value, modelDD);
+    fetchJSONDD(modelURL + tempYear + "&make=" + makeDD.value, modelDD);
   }
   // if year and make has been selected enable model drop down and options
 });
@@ -316,7 +370,7 @@ makeDD.addEventListener("change", (e) => {
   makeSelected = true;
   if(yearSelected){ // do not enable model until year and model values are changed
     modelDD.disabled = false;
-    fetchJSON(modelURL + tempYear + "&make=" + makeDD.value, modelDD);
+    fetchJSONDD(modelURL + tempYear + "&make=" + makeDD.value, modelDD);
   }
 });
 
@@ -353,8 +407,8 @@ form.addEventListener("submit", (e) => {
 checkUUID();
 checklocalTheme();
 // populate drop downs with most recent year and makes from goverment api, model is fetched when both year and make has been entered
-fetchJSON(yearsURL, yearDD);
-fetchJSON(makeURL + tempYear, makeDD);
+fetchJSONDD(yearsURL, yearDD);
+fetchJSONDD(makeURL + tempYear, makeDD);
 
 // handle form
 // TODO: 1) get form values 2) On calculate button -> verify values -> send api req to EPA site 3) parse responce 4) show maps route
