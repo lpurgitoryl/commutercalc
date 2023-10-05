@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>CommuterCalc</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet" />
+
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" type="text/css">
+    <header id="header">
+        <nav class="headerNav">
+            <a class="title"><img class="icon" width="40" height="40" src="CC_logo.svg" />
+                CommuterCalc</a>
+            <div class="switchWrapper">
+                <label class="switch">
+                    <input type="checkbox" id="checkbox" onclick="changeBG()" />
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="mainWrapper">
+            <section class="infoWraper">
+                <a class="text">Enter the following fields to calculate your commute cost!</a>
+                <a class="error">Please revise the following fields.</a>
+                
+                <form id="userInput">
+                    <div class="inputSec">
+
+                        <div class="inputField">
+                            <label for="year">Year</label>
+                            <select name="year" id="year">
+                                <option value="none" selected hidden>
+                                    Year of your vehicle
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="inputField">
+                            <label for="make">Make</label>
+                            <select name="make" id="make">
+                                <option value="none" selected hidden>Make of your vehicle</option>
+
+                            </select>
+                        </div>
+
+                        <div class="inputField">
+                            <label for="model">Model</label>
+                            <select name="model" id="model" disabled>
+                                <option value="none" selected hidden>Model of your vehicle</option>
+
+                            </select>
+                        </div>
+
+                        <div class="inputField">
+                            <label for="locA">Location A</label>
+                            <div>
+                                    <input type="text" list="locationA" id="locA" name="locA"
+                                    placeholder="e.g University of California Riverside" />
+                                <datalist id="locationA">
+
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <div class="inputField">
+                            <label for="locB">Location B</label>
+                            <div>
+                                <input type="text" id="locB" list="locationB" name="locB"
+                                    placeholder="e.g SoFi Stadium" />
+                                <datalist id="locationB">
+
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <div class="inputField">Round trip?
+                            <div>
+                                <label for="yes">Yes</label>
+                                <input type="radio" name="round_trip" id="yes" value="yes" checked>
+
+                                <label for="no">No</label>
+                                <input type="radio" name="round_trip" id="no" value="no">
+                            </div>
+                        </div>
+
+                        <div class="inputField">
+                            <label for="trips">Number of trips</label>
+                            <input type="number" id="trips" name="trips" min="1" step="1" max="1000000"
+                                value="1" />
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+            <section class="btnWrapper">
+                <button type="submit" form="userInput" class="submitBtn">
+                    Calculate!
+                </button>
+            </section>
+
+            <section class="mapWrapper">
+                <div id='map' style="width: auto ; height: 600px;"></div>
+            </section>
+
+            <section class="statsWrapper">
+                <a class="text">Commute Information!</a>
+                <ul id="travel_metrics">
+                    <li id="rtt"></li>
+                    <li id="gas_used"></li>
+                    <li id="co2"></li>
+                    <li id="total_distance"></li>
+                    <li id="year_metrics"></li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <!-- <footer id="footer">Footer sec</footer> -->
+
+    <script src="index.js" async defer></script>
+</body>
+
+</html>
