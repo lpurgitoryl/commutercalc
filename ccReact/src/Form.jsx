@@ -1,27 +1,8 @@
-// import { useState } from "react";
-import "./App.css";
-import logo from "./assets/CC_logo.svg";
-import Section from "./cardSection/CardSection.jsx"
+function Form(){
 
-function App() {
-  return (
-    <>
-      <header id="header">
-        <nav className="headerNav">
-          <img className="icon" src={logo} />
-          <a className="title">CommuterCalc</a>
-        </nav>
-      </header>
-
-      <main className="main">
-      <Section>
-          <a className="text">
-            Enter the following fields to calculate your commute cost!
-          </a>
-          <a className="error">Please revise the following fields.</a>
-
-          <form id="userInput">
-            {/* <div className="inputSec"> */}
+    return (
+        <form id="userInput">
+            <div className="inputSec">
               <div className="inputField">
                 <label htmlFor="year">Year</label>
                 <select name="year" id="year">
@@ -106,17 +87,9 @@ function App() {
                   value="1"
                 />
               </div>
+            </div>
           </form>
-        </Section>
-
-        <Section>
-          <p>
-            omg please card section wrapper?
-          </p>
-        </Section>
-      </main>
-    </>
-  );
+    )
 }
 
-export default App;
+export default Form ;
