@@ -1,9 +1,11 @@
+import classes from "./Form.module.css"
+
 function Form(){
 
     return (
         <form id="userInput">
-            <div className="inputSec">
-              <div className="inputField">
+            <div className={classes.inputSec}>
+              <div className={classes.inputField}>
                 <label htmlFor="year">Year</label>
                 <select name="year" id="year">
                   <option value="none" selected hidden>
@@ -12,7 +14,7 @@ function Form(){
                 </select>
               </div>
 
-              <div className="inputField">
+              <div className={classes.inputField}>
                 <label htmlFor="make">Make</label>
                 <select name="make" id="make">
                   <option value="none" selected hidden>
@@ -21,7 +23,7 @@ function Form(){
                 </select>
               </div>
 
-              <div className="inputField">
+              <div className={classes.inputField}>
                 <label htmlFor="model">Model</label>
                 <select name="model" id="model" disabled>
                   <option value="none" selected hidden>
@@ -30,7 +32,7 @@ function Form(){
                 </select>
               </div>
 
-              <div className="inputField">
+              <div className={classes.inputField}>
                 <label htmlFor="locA">Location A</label>
                 <div>
                   <input
@@ -44,7 +46,7 @@ function Form(){
                 </div>
               </div>
 
-              <div className="inputField">
+              <div className={classes.inputField}>
                 <label htmlFor="locB">Location B</label>
                 <div>
                   <input
@@ -58,7 +60,7 @@ function Form(){
                 </div>
               </div>
 
-              <div className="inputField">
+              <div className={classes.inputField}>
                 Round trip?
                 <div>
                   <label htmlFor="yes">Yes</label>
@@ -75,7 +77,7 @@ function Form(){
                 </div>
               </div>
 
-              <div className="inputField">
+              <div className={classes.inputField}>
                 <label htmlFor="trips">Number of trips</label>
                 <input
                   type="number"
