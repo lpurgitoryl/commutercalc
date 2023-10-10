@@ -21,8 +21,12 @@ function checkUUID() {
   return localStorage.getItem("uuid");
 }
 
+function handleButton(e){
+  e.preventDefault();
+}
 
 function App() {
+
   return (
     <>
       <header id="header">
@@ -42,9 +46,9 @@ function App() {
         </Section>
 
         <Section>
-        <button type="submit" form="userInput" className="submitBtn">
-                    Calculate!
-        </button>
+          <button type="submit" form="userInput" className="submitBtn" onClick={handleButton}>
+            Calculate!
+          </button>
         </Section>
 
         <Section>

@@ -135,6 +135,7 @@ function Form(props) {
             id="year"
             value={selectedYear}
             onInput={yearHandler}
+            required
           >
             {yearOptions.map((option) => (
               <option value={option.value} key={option.value}>
@@ -151,6 +152,7 @@ function Form(props) {
             id="make"
             value={selectedMake}
             onInput={makeHandler}
+            required
           >
             {makeOptions.map((option) => (
               <option value={option.value} key={option.value}>
@@ -167,6 +169,7 @@ function Form(props) {
             id="model"
             value={selectedModel}
             onInput={modelHandler}
+            required
           >
             {modelOptions.map((option) => (
               <option value={option.value} key={option.value}>
@@ -186,6 +189,7 @@ function Form(props) {
               name="locA"
               placeholder="e.g University of California Riverside"
               onInput={handleLocASugggestions}
+              required
             />
             <datalist id="locationA">
               {locAOptions.map((option) => (
@@ -207,6 +211,7 @@ function Form(props) {
               name="locB"
               placeholder="e.g SoFi Stadium"
               onInput={handleLocBSugggestions}
+              required
             />
             <datalist id="locationB">
               {locBOptions.map((option) => (
