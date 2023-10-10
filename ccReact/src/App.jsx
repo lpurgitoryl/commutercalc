@@ -4,13 +4,23 @@ import logo from "./assets/CC_logo.svg";
 import Section from "./cardSection/CardSection.jsx";
 import Form from "./Form/Form.jsx";
 
-function handleSubmit(e){
-  e.preventDefault();
-  const form = e.target;
-  const formData = new FormData(form);
-  console.log(formData)
+const publicToken =
+  "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
 
+const sessionUUID = checkUUID();
+
+function checkUUID() {
+  if (localStorage.getItem("uuid") == null) {
+    console.log("no session UUID found, new session UUID created");
+    localStorage.setItem("uuid", crypto.randomUUID());
+    console.log(localStorage.getItem("uuid"));
+  } else {
+    console.log("session UUID " + localStorage.getItem("uuid"));
+  }
+
+  return localStorage.getItem("uuid");
 }
+
 
 function App() {
   return (
@@ -28,11 +38,11 @@ function App() {
             Enter the following fields to calculate your commute cost!
           </a>
           <a className="error">Please revise the following fields.</a>
-          <Form></Form>
+          <Form token={publicToken}></Form>
         </Section>
 
         <Section>
-        <button type="submit" form="userInput" className="submitBtn" onSubmit={handleSubmit}>
+        <button type="submit" form="userInput" className="submitBtn">
                     Calculate!
         </button>
         </Section>

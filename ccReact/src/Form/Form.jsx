@@ -1,17 +1,20 @@
 import classes from "./Form.module.css";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-function Form() {
+function Form(props) {
   const [yearOptions, setYearOptions] = useState([]);
-  const [selectedYear, setYear] = useState('2023');
+  const [selectedYear, setYear] = useState("2023");
   const [makeOptions, setMakeOptions] = useState([]);
-  const [selectedMake, setMake] = useState('Acura');
-  // const [enableModelDD , enableModel] = useState(true);
+  const [selectedMake, setMake] = useState("Acura");
   const [modelOptions, setModelOptions] = useState([]);
   const [selectedModel, setModel] = useState([]);
-  
-  useEffect(() => { // YEAR onload
+  const [locAOptions, setLocAOptions] = useState([]);
+  const [locA, setLocA] = useState([]);
+  const [locBOptions, setLocBOptions] = useState([]);
+  const [locB, setLocB] = useState([]);
+
+  useEffect(() => {
+    // YEAR onload
     fetch("https://www.fueleconomy.gov/ws/rest/vehicle/menu/year", {
       headers: {
         Accept: "application/json",
@@ -21,40 +24,105 @@ function Form() {
       .then((data) => setYearOptions(data.menuItem));
   }, []); // empty 2nd param signfies on page load
 
-  function yearHandler(e){
-    console.log(e.target.value)
-    setYear(e.target.value); 
-  }
-
-  useEffect(() => { // make
-    fetch("https://www.fueleconomy.gov/ws/rest/vehicle/menu/make?year=" + selectedYear, {
-      headers: {
-        Accept: "application/json",
-      },
-    })
+  useEffect(() => {
+    // make
+    fetch(
+      "https://www.fueleconomy.gov/ws/rest/vehicle/menu/make?year=" +
+        selectedYear,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
-      .then((data) => { setMakeOptions(data.menuItem); console.log(selectedMake);});
+      .then((data) => {
+        setMakeOptions(data.menuItem);
+        console.log(selectedMake);
+      });
   }, [selectedYear]);
 
-  function makeHandler(e){
-    console.log(e.target.value)
+  useEffect(() => {
+    // model
+    fetch(
+      "https://www.fueleconomy.gov/ws/rest/vehicle/menu/model?year=" +
+        selectedYear +
+        "&make=" +
+        selectedMake,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setModelOptions(data.menuItem);
+        console.log(selectedModel);
+      });
+  }, [selectedYear, selectedMake]);
+
+  useEffect(() => {
+    // locationA suggs
+    fetch(
+      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+        locA +
+        ".json?access_token=" +
+        props.token,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setLocAOptions(data.features);
+        console.log(locA);
+      });
+  }, [locA]);
+
+  useEffect(() => {
+    // locationB suggs
+    fetch(
+      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+        locB +
+        ".json?access_token=" +
+        props.token,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setLocBOptions(data.features);
+        console.log(locB);
+      });
+  }, [locB]);
+
+  function makeHandler(e) {
+    console.log(e.target.value);
     setMake(e.target.value);
-    // enableModel(false);
   }
 
-  useEffect(() => { // model
-    fetch("https://www.fueleconomy.gov/ws/rest/vehicle/menu/model?year=" + selectedYear +"&make="+ selectedMake, {
-      headers: {
-        Accept: "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => { setModelOptions(data.menuItem); console.log(selectedModel);});
-  }, [selectedYear,selectedMake]);
+  function yearHandler(e) {
+    console.log(e.target.value);
+    setYear(e.target.value);
+  }
 
-  function modelHandler(e){
-    console.log(e.target.value)
-    setModel(e.target.value); 
+  function modelHandler(e) {
+    console.log(e.target.value);
+    setModel(e.target.value);
+  }
+
+  function handleLocASugggestions(e) {
+    setLocA(e.target.value);
+  }
+
+  function handleLocBSugggestions(e) {
+    setLocB(e.target.value);
   }
 
   return (
@@ -62,7 +130,12 @@ function Form() {
       <div className={classes.inputSec}>
         <div className={classes.inputField}>
           <label htmlFor="year">Year</label>
-          <select name="year" id="year" value={selectedYear} onInput={yearHandler}>
+          <select
+            name="year"
+            id="year"
+            value={selectedYear}
+            onInput={yearHandler}
+          >
             {yearOptions.map((option) => (
               <option value={option.value} key={option.value}>
                 {option.value}
@@ -73,7 +146,12 @@ function Form() {
 
         <div className={classes.inputField}>
           <label htmlFor="make">Make</label>
-          <select name="make" id="make" value={selectedMake} onInput={makeHandler}>
+          <select
+            name="make"
+            id="make"
+            value={selectedMake}
+            onInput={makeHandler}
+          >
             {makeOptions.map((option) => (
               <option value={option.value} key={option.value}>
                 {option.value}
@@ -84,8 +162,13 @@ function Form() {
 
         <div className={classes.inputField}>
           <label htmlFor="model">Model</label>
-          <select name="model" id="model" value={selectedModel} onInput={modelHandler}>
-          {modelOptions.map((option) => (
+          <select
+            name="model"
+            id="model"
+            value={selectedModel}
+            onInput={modelHandler}
+          >
+            {modelOptions.map((option) => (
               <option value={option.value} key={option.value}>
                 {option.value}
               </option>
@@ -102,8 +185,15 @@ function Form() {
               id="locA"
               name="locA"
               placeholder="e.g University of California Riverside"
+              onInput={handleLocASugggestions}
             />
-            <datalist id="locationA"></datalist>
+            <datalist id="locationA">
+              {locAOptions.map((option) => (
+                <option value={option.place_name} key={option.place_name}>
+                  {option.place_name}
+                </option>
+              ))}
+            </datalist>
           </div>
         </div>
 
@@ -116,8 +206,15 @@ function Form() {
               list="locationB"
               name="locB"
               placeholder="e.g SoFi Stadium"
+              onInput={handleLocBSugggestions}
             />
-            <datalist id="locationB"></datalist>
+            <datalist id="locationB">
+              {locBOptions.map((option) => (
+                <option value={option.place_name} key={option.place_name}>
+                  {option.place_name}
+                </option>
+              ))}
+            </datalist>
           </div>
         </div>
 
@@ -147,7 +244,7 @@ function Form() {
             min="1"
             step="1"
             max="1000000"
-            value="1"
+            defaultValue="1"
           />
         </div>
       </div>
