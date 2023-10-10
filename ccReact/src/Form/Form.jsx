@@ -4,10 +4,14 @@ import { useEffect } from "react";
 
 function Form() {
   const [yearOptions, setYearOptions] = useState([]);
-  const [selectedYear, setYear] = useState('2024');
+  const [selectedYear, setYear] = useState('2023');
   const [makeOptions, setMakeOptions] = useState([]);
+  const [selectedMake, setMake] = useState('Acura');
+  // const [enableModelDD , enableModel] = useState(true);
+  const [modelOptions, setModelOptions] = useState([]);
+  const [selectedModel, setModel] = useState([]);
   
-  useEffect(() => {
+  useEffect(() => { // YEAR onload
     fetch("https://www.fueleconomy.gov/ws/rest/vehicle/menu/year", {
       headers: {
         Accept: "application/json",
@@ -22,25 +26,43 @@ function Form() {
     setYear(e.target.value); 
   }
 
-  useEffect(() => {
+  useEffect(() => { // make
     fetch("https://www.fueleconomy.gov/ws/rest/vehicle/menu/make?year=" + selectedYear, {
       headers: {
         Accept: "application/json",
       },
     })
       .then((response) => response.json())
-      .then((data) => { setMakeOptions(data.menuItem); console.log(selectedYear);});
+      .then((data) => { setMakeOptions(data.menuItem); console.log(selectedMake);});
   }, [selectedYear]);
+
+  function makeHandler(e){
+    console.log(e.target.value)
+    setMake(e.target.value);
+    // enableModel(false);
+  }
+
+  useEffect(() => { // model
+    fetch("https://www.fueleconomy.gov/ws/rest/vehicle/menu/model?year=" + selectedYear +"&make="+ selectedMake, {
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => { setModelOptions(data.menuItem); console.log(selectedModel);});
+  }, [selectedYear,selectedMake]);
+
+  function modelHandler(e){
+    console.log(e.target.value)
+    setModel(e.target.value); 
+  }
 
   return (
     <form id="userInput">
       <div className={classes.inputSec}>
         <div className={classes.inputField}>
           <label htmlFor="year">Year</label>
-          <select name="year" id="year" value={selectedYear} onChange={yearHandler}>
-            {/* <option value="none" selected hidden>
-              Year of your vehicle
-            </option> */}
+          <select name="year" id="year" value={selectedYear} onInput={yearHandler}>
             {yearOptions.map((option) => (
               <option value={option.value} key={option.value}>
                 {option.value}
@@ -51,10 +73,7 @@ function Form() {
 
         <div className={classes.inputField}>
           <label htmlFor="make">Make</label>
-          <select name="make" id="make">
-            <option value="none" selected hidden>
-              Make of your vehicle
-            </option>
+          <select name="make" id="make" value={selectedMake} onInput={makeHandler}>
             {makeOptions.map((option) => (
               <option value={option.value} key={option.value}>
                 {option.value}
@@ -65,10 +84,12 @@ function Form() {
 
         <div className={classes.inputField}>
           <label htmlFor="model">Model</label>
-          <select name="model" id="model" disabled>
-            <option value="none" selected hidden>
-              Model of your vehicle
-            </option>
+          <select name="model" id="model" value={selectedModel} onInput={modelHandler}>
+          {modelOptions.map((option) => (
+              <option value={option.value} key={option.value}>
+                {option.value}
+              </option>
+            ))}
           </select>
         </div>
 
