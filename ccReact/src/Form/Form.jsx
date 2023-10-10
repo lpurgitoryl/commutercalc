@@ -3,13 +3,17 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 function Form() {
-  const [yearOptions, setOptions] = useState([]);
-
+  const [yearOptions, setYearOptions] = useState([]);
+  
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("https://www.fueleconomy.gov/ws/rest/vehicle/menu/year", {
+      headers: {
+        Accept: "application/json",
+      },
+    })
       .then((response) => response.json())
-      .then((data) => setOptions(data));
-  }, []);
+      .then((data) => setYearOptions(data.menuItem));
+  }, []); // empty 2nd param signfies on page load
 
   return (
     <form id="userInput">
@@ -21,8 +25,8 @@ function Form() {
               Year of your vehicle
             </option>
             {yearOptions.map((option) => (
-              <option value={option.id} key={option.id}>
-                {option.name}
+              <option value={option.value} key={option.value}>
+                {option.value}
               </option>
             ))}
           </select>
