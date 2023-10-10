@@ -4,6 +4,8 @@ import { useEffect } from "react";
 
 function Form() {
   const [yearOptions, setYearOptions] = useState([]);
+  const [selectedYear, setYear] = useState('2024');
+  const [makeOptions, setMakeOptions] = useState([]);
   
   useEffect(() => {
     fetch("https://www.fueleconomy.gov/ws/rest/vehicle/menu/year", {
@@ -15,15 +17,30 @@ function Form() {
       .then((data) => setYearOptions(data.menuItem));
   }, []); // empty 2nd param signfies on page load
 
+  function yearHandler(e){
+    console.log(e.target.value)
+    setYear(e.target.value); 
+  }
+
+  useEffect(() => {
+    fetch("https://www.fueleconomy.gov/ws/rest/vehicle/menu/make?year=" + selectedYear, {
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => { setMakeOptions(data.menuItem); console.log(selectedYear);});
+  }, [selectedYear]);
+
   return (
     <form id="userInput">
       <div className={classes.inputSec}>
         <div className={classes.inputField}>
           <label htmlFor="year">Year</label>
-          <select name="year" id="year">
-            <option value="none" selected hidden>
+          <select name="year" id="year" value={selectedYear} onChange={yearHandler}>
+            {/* <option value="none" selected hidden>
               Year of your vehicle
-            </option>
+            </option> */}
             {yearOptions.map((option) => (
               <option value={option.value} key={option.value}>
                 {option.value}
@@ -38,6 +55,11 @@ function Form() {
             <option value="none" selected hidden>
               Make of your vehicle
             </option>
+            {makeOptions.map((option) => (
+              <option value={option.value} key={option.value}>
+                {option.value}
+              </option>
+            ))}
           </select>
         </div>
 

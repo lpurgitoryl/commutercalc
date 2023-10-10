@@ -4,6 +4,14 @@ import logo from "./assets/CC_logo.svg";
 import Section from "./cardSection/CardSection.jsx";
 import Form from "./Form/Form.jsx";
 
+function handleSubmit(e){
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+  console.log(formData)
+
+}
+
 function App() {
   return (
     <>
@@ -21,6 +29,12 @@ function App() {
           </a>
           <a className="error">Please revise the following fields.</a>
           <Form></Form>
+        </Section>
+
+        <Section>
+        <button type="submit" form="userInput" className="submitBtn" onSubmit={handleSubmit}>
+                    Calculate!
+        </button>
         </Section>
 
         <Section>
