@@ -21,7 +21,6 @@ function App() {
           </a>
           <a className="error">Please revise the following fields.</a>
           <Form></Form>
-
         </Section>
 
         <Section>
