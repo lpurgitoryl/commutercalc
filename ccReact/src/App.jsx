@@ -5,6 +5,7 @@ import logo from "./assets/CC_logo.svg";
 import Section from "./cardSection/CardSection.jsx";
 import Form from "./Form/Form.jsx";
 import HeaderSection from "./HeaderSection/HeaderSection";
+import FooterSection from "./FooterSection/FooterSection";
 
 const publicToken =
   "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
@@ -48,10 +49,11 @@ function App() {
             <a className="error">Please revise the following fields.</a>
             <Form token={publicToken}></Form>
           </Section>
-          <Section>
+          {/* <Section>
             <p>omg please card section wrapper?</p>
-          </Section>
+          </Section> */}
         </main>
+          <FooterSection></FooterSection>
       </div>
     </>
   );

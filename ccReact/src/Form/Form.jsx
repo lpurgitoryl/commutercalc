@@ -1,5 +1,6 @@
 import classes from "./Form.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import ThemeAndFormContext from "../store/ThemeAndForm-context";
 import btnclasses from "./Button.module.css"
 
 function Form(props) {
@@ -13,6 +14,7 @@ function Form(props) {
   const [locA, setLocA] = useState([]);
   const [locBOptions, setLocBOptions] = useState([]);
   const [locB, setLocB] = useState([]);
+  const ctx = useContext(ThemeAndFormContext);
 
   useEffect(() => {
     // YEAR onload
@@ -59,7 +61,6 @@ function Form(props) {
       .then((response) => response.json())
       .then((data) => {
         setModelOptions(data.menuItem);
-        console.log(selectedModel);
       });
   }, [selectedYear, selectedMake]);
 
@@ -79,7 +80,6 @@ function Form(props) {
       .then((response) => response.json())
       .then((data) => {
         setLocAOptions(data.features);
-        console.log(locA);
       });
   }, [locA]);
 
@@ -99,7 +99,6 @@ function Form(props) {
       .then((response) => response.json())
       .then((data) => {
         setLocBOptions(data.features);
-        console.log(locB);
       });
   }, [locB]);
 
@@ -129,8 +128,8 @@ function Form(props) {
   function submitHandler(e){
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log(formData)
-    console.log([...formData.entries()]);
+    const formJSON = Object.fromEntries(formData.entries());
+    ctx.userData(formJSON); 
   }
 
   return (
@@ -188,6 +187,7 @@ function Form(props) {
         </div>
 
         <div className={classes.inputField}>
+          { ctx.invalidLocA ? <h1>OMG ERROR BESTIE</h1> : null  }
           <label htmlFor="locA">Location A</label>
           <div>
             <input
@@ -270,6 +270,7 @@ function Form(props) {
         </div>
         
       </div>
+      {/* <h1>{ctx.commuteData.year}</h1> */}
     </form>
   );
 }
