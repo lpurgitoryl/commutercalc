@@ -187,7 +187,7 @@ function Form(props) {
         </div>
 
         <div className={classes.inputField}>
-          { ctx.invalidLocA ? <h1>OMG ERROR BESTIE</h1> : null  }
+          { ctx.invalidLocA ? <a className={classes.errormsg}>Enter a valid location A</a> : null  }
           <label htmlFor="locA">Location A</label>
           <div>
             <input
@@ -200,8 +200,9 @@ function Form(props) {
               placeholder="e.g University of California Riverside"
               onInput={handleLocASugggestions}
               required
+              className={ctx.invalidLocA ? classes.err : null}
             />
-            <datalist id="locationA">
+            <datalist id="locationA" >
               {locAOptions.map((option) => (
                 <option value={option.place_name} key={option.place_name}>
                   {option.place_name}
@@ -212,6 +213,7 @@ function Form(props) {
         </div>
 
         <div className={classes.inputField}>
+        { ctx.invalidLocB ? <a className={classes.errormsg}>Enter a valid location B</a> : null  }
           <label htmlFor="locB">Location B</label>
           <div>
             <input
@@ -224,6 +226,7 @@ function Form(props) {
               placeholder="e.g SoFi Stadium"
               onInput={handleLocBSugggestions}
               required
+              className={ctx.invalidLocB ? classes.err : null}
             />
             <datalist id="locationB">
               {locBOptions.map((option) => (
@@ -253,6 +256,7 @@ function Form(props) {
         </div>
 
         <div className={classes.inputField}>
+        { ctx.invalidLocA ? <a className={classes.errormsg}>Enter value greater than zero</a> : null  }
           <label htmlFor="trips">Number of trips</label>
           <input
             type="number"
@@ -262,6 +266,7 @@ function Form(props) {
             step="1"
             max="1000000"
             defaultValue="1"
+            className={ctx.invalidTrips ? classes.err : null}
           />
         </div>
 

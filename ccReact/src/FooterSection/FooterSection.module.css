@@ -7,7 +7,6 @@
     padding-left: 1rem;
     transition: background-color 0.5s;
     transition: color 0.5s;
-    position: absolute;
-    bottom: 0;
+    /* bottom: 0; */
     width: 100%;
 }

@@ -46,7 +46,7 @@ function App() {
             <a className="text">
               Enter the following fields to calculate your commute cost!
             </a>
-            <a className="error">Please revise the following fields.</a>
+            { (ctx.invalidLocA || ctx.invalidLocB || ctx.invalidTrips) ? <a className="error">Please revise the following fields.</a> : null }
             <Form token={publicToken}></Form>
           </Section>
           {/* <Section>
