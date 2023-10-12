@@ -2,21 +2,23 @@ import { useState, createContext } from "react";
 
 const ThemeAndFormContext = createContext({
   theme: "",
-  commuteData: []
+  commuteData: [],
 });
 
 export function ThemeAndFormContextProvider(props) {
   const [currTheme, setTheme] = useState("light");
   const [userData, setUserData] = useState([]);
 
-  function setThemeHandler() {
-    (prevTheme) => {
-      if (prevTheme == "light") {
-        setTheme("dark");
-      } else {
-        setTheme("light");
-      }
-    };
+  function setThemeHandler(checked) {
+    if (!checked) {
+      setTheme(() => {
+        return "light";
+      });
+    } else {
+      setTheme(() => {
+        return "dark";
+      });
+    }
   }
 
   function userDataHandler(formData) {
