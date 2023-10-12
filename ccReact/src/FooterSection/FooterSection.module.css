@@ -1,6 +1,5 @@
 .footer{
     display: flex;
-    position: relative;
     align-items: center;
     justify-content: center;
     height: 4rem;
@@ -8,4 +7,7 @@
     padding-left: 1rem;
     transition: background-color 0.5s;
     transition: color 0.5s;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

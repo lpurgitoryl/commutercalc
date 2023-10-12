@@ -1,11 +1,13 @@
 .light {
   background-color: rgba(112, 128, 144, 0.1);
   transition: background-color 0.5s;
+  min-height: 100vh;
 }
 
 .dark {
   background-color: rgb(50, 50, 55);
   transition: background-color 0.5s;
+  min-height: 100vh;
 }
 
 .main {
