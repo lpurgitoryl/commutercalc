@@ -1,3 +1,5 @@
+import { useContext, useEffect, useState } from "react";
+import ThemeAndFormContext from "../store/ThemeAndForm-context.jsx";
 import classes from "./CardSection.module.css";
 
 function CardSection(props) {

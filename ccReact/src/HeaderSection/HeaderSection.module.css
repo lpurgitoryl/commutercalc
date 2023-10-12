@@ -1,0 +1,39 @@
+.headerNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+  transition: background-color 0.5s;
+  transition: color 0.5s;
+}
+
+.light {
+  background-color: white;
+  border-bottom: solid rgba(0, 0, 0, 0.4) 1px;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+  color: black;
+}
+
+.dark {
+  background-color: rgb(50, 50, 55);
+  border-bottom: solid rgba(255, 255, 255, 0.4) 1px;
+  box-shadow: 0 20px 25px -5px rgba(255, 255, 255, 0.1),
+    0 8px 10px -6px rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.title {
+  flex: 0 1 auto;
+  margin-inline-end: auto;
+  padding-left: 0.5rem;
+  font-size: xx-large;
+  font-weight: 700;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+}

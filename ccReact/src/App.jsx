@@ -1,9 +1,10 @@
-// import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import ThemeAndFormContext from "./store/ThemeAndForm-context";
 import "./App.css";
 import logo from "./assets/CC_logo.svg";
 import Section from "./cardSection/CardSection.jsx";
 import Form from "./Form/Form.jsx";
-import ToggleSwitch from "./Toggle/ToggleSwitch.jsx";
+import HeaderSection from "./HeaderSection/HeaderSection";
 
 const publicToken =
   "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
@@ -23,17 +24,22 @@ function checkUUID() {
 }
 
 function App() {
+  const [color, setColor] = useState("light");
+  const ctx = useContext(ThemeAndFormContext);
+
+  useEffect(() => {
+    // change bg color when context theme changes
+    if (ctx.theme == "light") {
+      setColor("light");
+    } else {
+      setColor("dark");
+    }
+  }, [ctx.theme]);
+
   return (
     <>
-      <div className="bg">
-        <header id="header">
-          <nav className="headerNav">
-            <img className="icon" src={logo} />
-            <a className="title">CommuterCalc</a>
-            <ToggleSwitch></ToggleSwitch>
-          </nav>
-        </header>
-
+      <div className={color}>
+        <HeaderSection logo={logo}></HeaderSection>
         <main className="main">
           <Section>
             <a className="text">
