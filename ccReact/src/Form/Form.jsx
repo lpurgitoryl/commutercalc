@@ -1,5 +1,6 @@
 import classes from "./Form.module.css";
 import { useState, useEffect } from "react";
+import btnclasses from "./Button.module.css"
 
 function Form(props) {
   const [yearOptions, setYearOptions] = useState([]);
@@ -125,8 +126,15 @@ function Form(props) {
     setLocB(e.target.value);
   }
 
+  function submitHandler(e){
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    console.log(formData)
+    console.log([...formData.entries()]);
+  }
+
   return (
-    <form id="userInput">
+    <form id="userInput" onSubmit={submitHandler}>
       <div className={classes.inputSec}>
         <div className={classes.inputField}>
           <label htmlFor="year">Year</label>
@@ -187,6 +195,8 @@ function Form(props) {
               list="locationA"
               id="locA"
               name="locA"
+              min="1"
+              max="256"
               placeholder="e.g University of California Riverside"
               onInput={handleLocASugggestions}
               required
@@ -209,6 +219,8 @@ function Form(props) {
               id="locB"
               list="locationB"
               name="locB"
+              min="1"
+              max="256"
               placeholder="e.g SoFi Stadium"
               onInput={handleLocBSugggestions}
               required
@@ -252,6 +264,11 @@ function Form(props) {
             defaultValue="1"
           />
         </div>
+
+        <div className={classes.inputField}>
+        <button type="submit" form="userInput" className={btnclasses.submitBtn}>Calculate!</button>
+        </div>
+        
       </div>
     </form>
   );

@@ -1,11 +1,15 @@
+.bg{
+  background-color: rgba(112, 128, 144, 0.1);
+}
 .headerNav {
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 4rem;
   padding-top: 0.5rem;
   padding-left: 1rem;
-  /* border-bottom: solid black 1px; */
+  border-bottom: solid rgba(0, 0, 0, .4) 1px;
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
     0 8px 10px -6px rgb(0 0 0 / 0.1);
 }

@@ -3,6 +3,7 @@ import "./App.css";
 import logo from "./assets/CC_logo.svg";
 import Section from "./cardSection/CardSection.jsx";
 import Form from "./Form/Form.jsx";
+import ToggleSwitch from "./Toggle/ToggleSwitch.jsx";
 
 const publicToken =
   "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
@@ -21,40 +22,31 @@ function checkUUID() {
   return localStorage.getItem("uuid");
 }
 
-function handleButton(e){
-  e.preventDefault();
-}
-
 function App() {
-
   return (
     <>
-      <header id="header">
-        <nav className="headerNav">
-          <img className="icon" src={logo} />
-          <a className="title">CommuterCalc</a>
-        </nav>
-      </header>
+      <div className="bg">
+        <header id="header">
+          <nav className="headerNav">
+            <img className="icon" src={logo} />
+            <a className="title">CommuterCalc</a>
+            <ToggleSwitch></ToggleSwitch>
+          </nav>
+        </header>
 
-      <main className="main">
-        <Section>
-          <a className="text">
-            Enter the following fields to calculate your commute cost!
-          </a>
-          <a className="error">Please revise the following fields.</a>
-          <Form token={publicToken}></Form>
-        </Section>
-
-        <Section>
-          <button type="submit" form="userInput" className="submitBtn" onClick={handleButton}>
-            Calculate!
-          </button>
-        </Section>
-
-        <Section>
-          <p>omg please card section wrapper?</p>
-        </Section>
-      </main>
+        <main className="main">
+          <Section>
+            <a className="text">
+              Enter the following fields to calculate your commute cost!
+            </a>
+            <a className="error">Please revise the following fields.</a>
+            <Form token={publicToken}></Form>
+          </Section>
+          <Section>
+            <p>omg please card section wrapper?</p>
+          </Section>
+        </main>
+      </div>
     </>
   );
 }
