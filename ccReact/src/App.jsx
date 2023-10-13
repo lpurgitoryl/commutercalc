@@ -13,19 +13,19 @@ import RouteMap from "./RouteMap/RouteMap";
 const publicToken =
   "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
 
-const sessionUUID = checkUUID();
+// const sessionUUID = checkUUID();
 
-function checkUUID() {
-  if (localStorage.getItem("uuid") == null) {
-    console.log("no session UUID found, new session UUID created");
-    localStorage.setItem("uuid", crypto.randomUUID());
-    console.log(localStorage.getItem("uuid"));
-  } else {
-    console.log("session UUID " + localStorage.getItem("uuid"));
-  }
+// function checkUUID() {
+//   if (localStorage.getItem("uuid") == null) {
+//     console.log("no session UUID found, new session UUID created");
+//     localStorage.setItem("uuid", crypto.randomUUID());
+//     console.log(localStorage.getItem("uuid"));
+//   } else {
+//     console.log("session UUID " + localStorage.getItem("uuid"));
+//   }
 
-  return localStorage.getItem("uuid");
-}
+//   return localStorage.getItem("uuid");
+// }
 
 function App() {
   const [color, setColor] = useState("light");

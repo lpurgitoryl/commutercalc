@@ -29,7 +29,9 @@ function RouteMap() {
     if (!ctx.invalidLocA) {
       var origin = new MapboxDirections({
         accessToken: token,
-        controls: false,
+        controls : {
+            inputs: false
+          },
         interactive: false
       });
       origin = origin.setOrigin(ctx.commuteData.locA);
