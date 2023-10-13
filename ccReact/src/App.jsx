@@ -8,6 +8,7 @@ import Section from "./cardSection/CardSection.jsx";
 import Form from "./Form/Form.jsx";
 import HeaderSection from "./HeaderSection/HeaderSection";
 import FooterSection from "./FooterSection/FooterSection";
+import RouteMap from "./RouteMap/RouteMap";
 
 const publicToken =
   "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
@@ -82,9 +83,10 @@ function App() {
             ) : null}
             <Form token={publicToken}></Form>
           </Section>
-          {/* <Section>
-            <p>omg please card section wrapper?</p>
-          </Section> */}
+          <Section>
+            <RouteMap/>
+            {/* <div className="mapWrapper" id="map" /> */}
+          </Section>
         </main>
         <FooterSection></FooterSection>
       </div>
