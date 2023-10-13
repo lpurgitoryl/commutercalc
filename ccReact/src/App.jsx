@@ -41,7 +41,7 @@ function App() {
 
   useEffect(() => {
     // toast error msg
-    // if any flah is false TOAST
+    // if any flag is false TOAST
     if( ctx.invalidTrips || ctx.invalidLocA || ctx.invalidLocB ){
       toast.error('Invalid Inputs!', {
         position: "top-center",
