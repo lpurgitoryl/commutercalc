@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import ThemeAndFormContext from "./store/ThemeAndForm-context";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import logo from "./assets/CC_logo.svg";
 import Section from "./cardSection/CardSection.jsx";
@@ -37,23 +39,54 @@ function App() {
     }
   }, [ctx.theme]);
 
+  useEffect(() => {
+    // toast error msg
+    // if any flah is false TOAST
+    if( ctx.invalidTrips || ctx.invalidLocA || ctx.invalidLocB ){
+      toast.error('Invalid Inputs!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+    }
+  }, [ctx.invalidTrips, ctx.invalidLocA, ctx.invalidLocB]);
+
   return (
     <>
       <div className={color}>
         <HeaderSection logo={logo}></HeaderSection>
         <main className="main">
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          ></ToastContainer>
           <Section>
             <a className="text">
               Enter the following fields to calculate your commute cost!
             </a>
-            { (ctx.invalidLocA || ctx.invalidLocB || ctx.invalidTrips) ? <a className="error">Please revise the following fields.</a> : null }
+            {ctx.invalidLocA || ctx.invalidLocB || ctx.invalidTrips ? (
+              <a className="error">Please revise the following fields.</a>
+            ) : null}
             <Form token={publicToken}></Form>
           </Section>
           {/* <Section>
             <p>omg please card section wrapper?</p>
           </Section> */}
         </main>
-          <FooterSection></FooterSection>
+        <FooterSection></FooterSection>
       </div>
     </>
   );

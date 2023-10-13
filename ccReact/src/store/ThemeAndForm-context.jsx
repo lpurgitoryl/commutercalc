@@ -35,6 +35,7 @@ export function ThemeAndFormContextProvider(props) {
     console.log(formData);
     if (isEqual(userData, formData)) {
       console.log("omg twins");
+      console.log("no new data set")
     } else {
       setUserData(formData);
     }
@@ -43,7 +44,7 @@ export function ThemeAndFormContextProvider(props) {
   }
 
   function validateUserData(userData) {
-    if (userData.locA == " " || userData.locA.length > 200) {
+    if (userData.locA.trim().length === 0  || userData.locA.length > 200) {
       setIsValidLocA(true);
       console.log("INVALID LOCA");
     } else {
@@ -51,7 +52,7 @@ export function ThemeAndFormContextProvider(props) {
       console.log("VALID LOCA");
     }
 
-    if (userData.locB == " " || userData.locB.length > 200) {
+    if (userData.locB.trim().length === 0 || userData.locB.length > 200) {
       setIsValidLocB(true);
       console.log("INVALID LOCB");
     } else {

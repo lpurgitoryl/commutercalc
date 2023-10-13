@@ -256,7 +256,7 @@ function Form(props) {
         </div>
 
         <div className={classes.inputField}>
-        { ctx.invalidLocA ? <a className={classes.errormsg}>Enter value greater than zero</a> : null  }
+        { ctx.invalidTrips ? <a className={classes.errormsg}>Enter a number greater than zero</a> : null  }
           <label htmlFor="trips">Number of trips</label>
           <input
             type="number"
