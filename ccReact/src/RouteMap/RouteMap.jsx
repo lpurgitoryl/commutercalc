@@ -1,28 +1,53 @@
-import { useEffect } from 'react';
-import classes from "./RouteMap.module.css"
-
+import { useEffect, useContext } from "react";
+import ThemeAndFormContext from "../store/ThemeAndForm-context";
+import classes from "./RouteMap.module.css";
+import isEmpty from "lodash/isEmpty";
 // lol this isnt my token pls dont abuse it
-mapboxgl.accessToken =
-  'pk.eyJ1IjoiYXlhYW56YXZlcmkiLCJhIjoiY2ttZHVwazJvMm95YzJvcXM3ZTdta21rZSJ9.WMpQsXd5ur2gP8kFjpBo8g';
+const token =
+  "pk.eyJ1IjoiYXlhYW56YXZlcmkiLCJhIjoiY2ttZHVwazJvMm95YzJvcXM3ZTdta21rZSJ9.WMpQsXd5ur2gP8kFjpBo8g";
+mapboxgl.accessToken = token;
+let map;
 
-function RouteMap  ()  {
+function RouteMap() {
+  const ctx = useContext(ThemeAndFormContext);
 
-    useEffect(() => {
-        const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v10',
-            center: [-73.985664, 40.748514],
-            zoom: 12,
-          });
-      
-          const directions = new MapboxDirections({
-            accessToken: mapboxgl.accessToken,
-            unit: 'metric',
-            profile: 'mapbox/driving',
-          });
-      }, []);  
-  
-    return (<div className={classes.wrapper} id="map" />);
-  
+  useEffect(() => {
+    //
+    map = new mapboxgl.Map({
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v12",
+      center: [-118.242766, 34.053691], // los angeles
+      zoom: 10,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isEmpty(ctx.commuteData) || ctx.invalidLocA || ctx.invalidLocB ) {
+      console.log("no valid route data yet");
+      return;
+    }
+    if (!ctx.invalidLocA) {
+      var origin = new MapboxDirections({
+        accessToken: token,
+        controls: false,
+        interactive: false
+      });
+      origin = origin.setOrigin(ctx.commuteData.locA);
+      map.addControl(origin);
+      console.log("adding origin");
+    }
+    if (!ctx.invalidLocB) {
+      var destination = new MapboxDirections({
+        accessToken: token,
+        controls: false,
+        interactive: false
+      });
+      destination = destination.setDestination(ctx.commuteData.locB);
+      map.addControl(destination);
+      console.log("adding destination");
+    }
+  }, [ctx.commuteData]);
+
+  return <div className={classes.wrapper} id="map" />;
 }
 export default RouteMap;

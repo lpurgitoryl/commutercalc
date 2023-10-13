@@ -31,7 +31,6 @@ export function ThemeAndFormContextProvider(props) {
 
   function userDataHandler(formData) {
     // doesnt rely on prev, just override
-    console.log(userData);
     console.log(formData);
     if (isEqual(userData, formData)) {
       console.log("omg twins");
