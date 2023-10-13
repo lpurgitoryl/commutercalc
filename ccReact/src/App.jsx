@@ -42,8 +42,8 @@ function App() {
   useEffect(() => {
     // toast error msg
     // if any flag is false TOAST
-    if( ctx.invalidTrips || ctx.invalidLocA || ctx.invalidLocB ){
-      toast.error('Invalid Inputs!', {
+    if (ctx.invalidTrips || ctx.invalidLocA || ctx.invalidLocB) {
+      toast.error("Invalid Inputs!", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -52,7 +52,7 @@ function App() {
         draggable: true,
         progress: undefined,
         theme: "colored",
-        });
+      });
     }
   }, [ctx.invalidTrips, ctx.invalidLocA, ctx.invalidLocB]);
 
