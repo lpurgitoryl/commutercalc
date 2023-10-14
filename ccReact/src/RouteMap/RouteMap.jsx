@@ -22,8 +22,8 @@ function RouteMap() {
   }, []);
 
   useEffect(() => {
-    if (isEmpty(ctx.commuteData) || ctx.invalidLocA || ctx.invalidLocB ) {
-      console.log("no valid route data yet");
+    if (isEmpty(ctx.commuteData) || ctx.invalidLocA || ctx.invalidLocB || ctx.invalidTrips) {
+      console.log("no valid data yet");
       return;
     }
     if (!ctx.invalidLocA) {
