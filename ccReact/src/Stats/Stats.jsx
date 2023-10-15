@@ -1,6 +1,9 @@
 import { useEffect, useContext, useState } from "react";
 import ThemeAndFormContext from "../store/ThemeAndForm-context";
 import isEmpty from "lodash/isEmpty";
+import classes from "./Stats.module.css";
+import Data from "../Data/Data";
+import placeHolder from "../assets/formPlaceHolder.svg"
 
 function Stats() {
   const ctx = useContext(ThemeAndFormContext);
@@ -47,17 +50,18 @@ function Stats() {
   }, [ctx.commuteTime, ctx.commuteDistance]);
 
   return (
-    <div>
-      {isEmpty(ctx.vehicle) ? (
-        <h1>STATS Waiting</h1>
-      ) : (
-        <h1>
-          STATS RECCIEVED{" "}
-          {`got ${hour}hours and ${min} mins with a distance of ${miles} miles`}
-        </h1>
-      )}
-      
-    </div>
+    <>
+      <div className={classes.container}>
+        {isEmpty(ctx.vehicle) ? (
+          <>
+          <h1>Fill out the form above for infomation about your commute!</h1>
+          <img className={classes.icon}src={placeHolder}></img>
+          </>
+        ) : (
+          <Data mpg={ctx.vehicle.comb08} dist={miles} />
+        )}
+      </div>
+    </>
   );
 }
 
