@@ -10,10 +10,8 @@ function Stats() {
 
   function parseCommuteTime(time) {
     time = time.split(" ");
-    console.log(time);
     // deal with hour and minutes
     if (time.length >= 2) {
-      console.log("hours and mins");
       const h = time[0].split("h")[0];
       setHour(h);
       const m = time[1].split("min")[0];
@@ -58,6 +56,7 @@ function Stats() {
           {`got ${hour}hours and ${min} mins with a distance of ${miles} miles`}
         </h1>
       )}
+      
     </div>
   );
 }

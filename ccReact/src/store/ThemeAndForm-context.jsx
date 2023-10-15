@@ -120,7 +120,7 @@ export function ThemeAndFormContextProvider(props) {
 
           return;
         },
-        { timeout: 60_000 , interval: 1000}
+        { timeout: 60_000 }
       );
     } catch (e) {
       console.error("faled to find dom element:", e);

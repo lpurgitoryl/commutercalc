@@ -6,13 +6,6 @@ import isEmpty from "lodash/isEmpty";
 const token =
   "pk.eyJ1IjoiYXlhYW56YXZlcmkiLCJhIjoiY2ttZHVwazJvMm95YzJvcXM3ZTdta21rZSJ9.WMpQsXd5ur2gP8kFjpBo8g";
 mapboxgl.accessToken = token;
-var directions = new MapboxDirections({
-  accessToken: token,
-  controls: {
-    inputs: false,
-  },
-  interactive: false,
-});
 
 let map;
 
@@ -40,12 +33,28 @@ function RouteMap() {
       return;
     }
     if (!ctx.invalidLocA) {
-      const origin = directions.setOrigin(ctx.commuteData.locA);
+      var o = new MapboxDirections({
+        accessToken: token,
+        controls: {
+          inputs: false,
+        },
+        interactive: false,
+      });
+
+      const origin = o.setOrigin(ctx.commuteData.locA);
       map.addControl(origin);
       console.log("adding origin");
     }
     if (!ctx.invalidLocB) {
-      const destination = directions.setDestination(ctx.commuteData.locB);
+      var d = new MapboxDirections({
+        accessToken: token,
+        controls: {
+          inputs: false,
+          instructions: false
+        },
+        interactive: false,
+      });
+      const destination = d.setDestination(ctx.commuteData.locB);
       map.addControl(destination);
       console.log("adding destination");
     }
