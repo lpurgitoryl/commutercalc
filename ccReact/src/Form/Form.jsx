@@ -1,7 +1,7 @@
 import classes from "./Form.module.css";
 import { useState, useEffect, useContext } from "react";
 import ThemeAndFormContext from "../store/ThemeAndForm-context";
-import btnclasses from "./Button.module.css"
+import btnclasses from "./Button.module.css";
 
 function Form(props) {
   const [yearOptions, setYearOptions] = useState([]);
@@ -41,7 +41,6 @@ function Form(props) {
       .then((response) => response.json())
       .then((data) => {
         setMakeOptions(data.menuItem);
-        console.log(selectedMake);
       });
   }, [selectedYear]);
 
@@ -125,11 +124,11 @@ function Form(props) {
     setLocB(e.target.value);
   }
 
-  function submitHandler(e){
+  function submitHandler(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formJSON = Object.fromEntries(formData.entries());
-    ctx.userData(formJSON); 
+    ctx.userData(formJSON);
   }
 
   return (
@@ -187,7 +186,9 @@ function Form(props) {
         </div>
 
         <div className={classes.inputField}>
-          { ctx.invalidLocA ? <a className={classes.errormsg}>Enter a valid location A</a> : null  }
+          {ctx.invalidLocA ? (
+            <a className={classes.errormsg}>Enter a valid location A</a>
+          ) : null}
           <label htmlFor="locA">Location A</label>
           <div>
             <input
@@ -202,7 +203,7 @@ function Form(props) {
               required
               className={ctx.invalidLocA ? classes.err : null}
             />
-            <datalist id="locationA" >
+            <datalist id="locationA">
               {locAOptions.map((option) => (
                 <option value={option.place_name} key={option.place_name}>
                   {option.place_name}
@@ -213,7 +214,9 @@ function Form(props) {
         </div>
 
         <div className={classes.inputField}>
-        { ctx.invalidLocB ? <a className={classes.errormsg}>Enter a valid location B</a> : null  }
+          {ctx.invalidLocB ? (
+            <a className={classes.errormsg}>Enter a valid location B</a>
+          ) : null}
           <label htmlFor="locB">Location B</label>
           <div>
             <input
@@ -256,7 +259,9 @@ function Form(props) {
         </div>
 
         <div className={classes.inputField}>
-        { ctx.invalidTrips ? <a className={classes.errormsg}>Enter a number greater than zero</a> : null  }
+          {ctx.invalidTrips ? (
+            <a className={classes.errormsg}>Enter a number greater than zero</a>
+          ) : null}
           <label htmlFor="trips">Number of trips</label>
           <input
             type="number"
@@ -271,11 +276,15 @@ function Form(props) {
         </div>
 
         <div className={classes.inputField}>
-        <button type="submit" form="userInput" className={btnclasses.submitBtn}>Calculate!</button>
+          <button
+            type="submit"
+            form="userInput"
+            className={btnclasses.submitBtn}
+          >
+            Calculate!
+          </button>
         </div>
-        
       </div>
-      {/* <h1>{ctx.commuteData.year}</h1> */}
     </form>
   );
 }

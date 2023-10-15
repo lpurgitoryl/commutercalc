@@ -1,13 +1,14 @@
 import { useState, createContext, useEffect } from "react";
 import isEqual from "lodash/isEqual";
 import isEmpty from "lodash/isEmpty";
-import { waitFor, AbortError } from 'poll-until-promise';
+import { waitFor } from "poll-until-promise";
 
 const ThemeAndFormContext = createContext({
-  theme: "",
+  theme: "light",
   commuteData: {},
   commuteTime: "",
   commuteDistance: "",
+  vehicle: {},
   invalidLocA: false,
   invalidLocB: false,
   invalidTrips: false,
@@ -21,6 +22,7 @@ export function ThemeAndFormContextProvider(props) {
   const [isValidTrips, setIsValidTrips] = useState(false);
   const [dist, setDist] = useState("");
   const [time, setTime] = useState("");
+  const [userVehicle, setVehicle] = useState([]);
 
   function setThemeHandler(checked) {
     if (!checked) {
@@ -63,6 +65,12 @@ export function ThemeAndFormContextProvider(props) {
       console.log("VALID LOCB");
     }
 
+    // if both locations are equal
+    if( !isEmpty(userData.locA) && !isEmpty(userData.locB) && isEqual(userData.locA,userData.locB) ){
+      setIsValidLocB(true);
+      console.log("Same Location!! LOCB is invalid");
+    }
+
     if (userData.trips <= 0 || userData.trips >= 1000000) {
       setIsValidTrips(true);
       console.log("INVALID Trips");
@@ -77,35 +85,93 @@ export function ThemeAndFormContextProvider(props) {
     commuteData: userData,
     commuteTime: time,
     commuteDistance: dist,
+    vehicle: userVehicle,
     invalidLocA: isValidLocA,
     invalidLocB: isValidLocB,
     invalidTrips: isValidTrips,
     setTheme: setThemeHandler,
     userData: userDataHandler,
+    domChange: grabDOMVals,
   };
 
   async function grabDOMVals() {
     try {
-      const element = await waitFor(() => {
-        const element = window.document.getElementsByClassName("mapbox-directions-route-summary");
-        if (!element){ throw new Error("failed to find popup"); }
-        const timeElement = element.item(0).getElementsByTagName('h1')[0].textContent;
-        console.log(timeElement);
+      // const element =
+      await waitFor(
+        () => {
+          const element = window.document.getElementsByClassName(
+            "mapbox-directions-route-summary"
+          );
+          if (!element) {
+            throw new Error("failed to find popup");
+          }
+          const timeElement = element
+            .item(0)
+            .getElementsByTagName("h1")[0].textContent;
+          console.log(timeElement);
 
-        const distanceElement = element.item(0).getElementsByTagName('span')[0].textContent;
-        console.log(distanceElement);
+          const distanceElement = element
+            .item(0)
+            .getElementsByTagName("span")[0].textContent;
+          console.log(distanceElement);
 
-        setDist(distanceElement);
-        setTime(timeElement);
+          setDist(distanceElement);
+          setTime(timeElement);
 
-        return;
-      }, { timeout: 60_000 });
-  
-      return element;
+          return;
+        },
+        { timeout: 60_000 , interval: 1000}
+      );
     } catch (e) {
-      console.error('faled to find dom element:', e);
+      console.error("faled to find dom element:", e);
       throw e;
     }
+  }
+
+  async function grabFuelEconData() {
+    let id = "";
+    fetch(
+      "https://www.fueleconomy.gov/ws/rest/vehicle/menu/options?year=" +
+        context.commuteData.year +
+        "&make=" +
+        context.commuteData.make +
+        "&model=" +
+        context.commuteData.model,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data.menuItem);
+        if (data.menuItem.length > 1) {
+          id = data.menuItem[0].value;
+        } else {
+          id = data.menuItem.value;
+        }
+        console.log(
+          `vehicle search for : ${
+            context.commuteData.year +
+            " " +
+            context.commuteData.make +
+            " " +
+            context.commuteData.model
+          }`
+        );
+        console.log(`vehicle id : ${id}`);
+        return fetch("https://www.fueleconomy.gov/ws/rest/vehicle/" + id, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("vehicle data found");
+        setVehicle(data);
+      });
   }
 
   useEffect(() => {
@@ -118,10 +184,8 @@ export function ThemeAndFormContextProvider(props) {
       return;
     }
 
-    // if here theres valid data, so grab DOM commute time and distance...
     //grab fuel econ data too
-
-    grabDOMVals();
+      grabFuelEconData();
 
   }, [context.commuteData]);
 

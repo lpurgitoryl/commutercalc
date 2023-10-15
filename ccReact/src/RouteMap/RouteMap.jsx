@@ -6,6 +6,14 @@ import isEmpty from "lodash/isEmpty";
 const token =
   "pk.eyJ1IjoiYXlhYW56YXZlcmkiLCJhIjoiY2ttZHVwazJvMm95YzJvcXM3ZTdta21rZSJ9.WMpQsXd5ur2gP8kFjpBo8g";
 mapboxgl.accessToken = token;
+var directions = new MapboxDirections({
+  accessToken: token,
+  controls: {
+    inputs: false,
+  },
+  interactive: false,
+});
+
 let map;
 
 function RouteMap() {
@@ -22,34 +30,27 @@ function RouteMap() {
   }, []);
 
   useEffect(() => {
-    if (isEmpty(ctx.commuteData) || ctx.invalidLocA || ctx.invalidLocB || ctx.invalidTrips) {
+    if (
+      isEmpty(ctx.commuteData) ||
+      ctx.invalidLocA ||
+      ctx.invalidLocB ||
+      ctx.invalidTrips
+    ) {
       console.log("no valid data yet");
       return;
     }
     if (!ctx.invalidLocA) {
-      var origin = new MapboxDirections({
-        accessToken: token,
-        controls : {
-            inputs: false
-          },
-        interactive: false
-      });
-      origin = origin.setOrigin(ctx.commuteData.locA);
+      const origin = directions.setOrigin(ctx.commuteData.locA);
       map.addControl(origin);
       console.log("adding origin");
     }
     if (!ctx.invalidLocB) {
-      var destination = new MapboxDirections({
-        accessToken: token,
-        controls: false,
-        interactive: false
-      });
-      destination = destination.setDestination(ctx.commuteData.locB);
+      const destination = directions.setDestination(ctx.commuteData.locB);
       map.addControl(destination);
       console.log("adding destination");
     }
   }, [ctx.commuteData]);
 
-  return <div className={classes.wrapper} id="map" />;
+  return <div className={classes.wrapper} id="map" onChange={setTimeout(ctx.domChange, 1500)}/>;
 }
 export default RouteMap;
