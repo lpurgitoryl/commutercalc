@@ -19,7 +19,7 @@ function HeaderSection(props) {
   return (
     <header id="header">
       <nav className={color}>
-        <img className={classes.icon} src={props.logo} />
+        <img className={classes.icon} src="/assets/CC_Logo.svg" />
         <a className={classes.title}>CommuterCalc</a>
         <ToggleSwitch></ToggleSwitch>
       </nav>

@@ -3,7 +3,6 @@ import ThemeAndFormContext from "./store/ThemeAndForm-context";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import logo from "./assets/CC_logo.svg";
 import Section from "./cardSection/CardSection";
 import Form from "./Form/Form";
 import HeaderSection from "./HeaderSection/HeaderSection";
@@ -61,7 +60,7 @@ function App() {
   return (
     <>
       <div className={color}>
-        <HeaderSection logo={logo}></HeaderSection>
+        <HeaderSection></HeaderSection>
         <main className="main">
           <ToastContainer
             position="top-right"

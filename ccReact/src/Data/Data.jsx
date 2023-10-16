@@ -1,9 +1,9 @@
 import Info from "../Info/Info";
-import gasIcon from "../assets/gas.svg";
-import moneyIcon from "../assets/money.svg";
-import timeIcon from "../assets/time.svg";
-import repeatIcon from "../assets/repeat.svg";
-import co2Icon from "../assets/co2.svg";
+// import gasIcon from "../assets/gas.svg";
+// import moneyIcon from "../assets/money.svg";
+// import timeIcon from "../assets/time.svg";
+// import repeatIcon from "../assets/repeat.svg";
+// import co2Icon from "../assets/co2.svg";
 import round from "lodash/round";
 import isEmpty from "lodash/isEmpty";
 
@@ -39,10 +39,10 @@ function Data(props) {
   }
   return (
     <>
-      <Info icon={gasIcon} info={gasUsedInfo() + " gal"} title={"gas used"} />
-      <Info icon={moneyIcon} info={"$    " + price()} title={"cost"} />
-      <Info icon={timeIcon} info={time(props.RTT)} title={"duration"} />
-      <Info icon={co2Icon} info={totalC02() + " kg"} title={"CO2"} />
+      <Info icon="/assets/gas.svg" info={gasUsedInfo() + " gal"} title={"gas used"} />
+      <Info icon="/assets/money.svg" info={"$    " + price()} title={"cost"} />
+      <Info icon="/assets/time.svg" info={time(props.RTT)} title={"duration"} />
+      <Info icon="/assets/co2.svg" info={totalC02() + " kg"} title={"CO2"} />
       {/* <Info icon={repeatIcon} info={gasUsedInfo(props.mpg, props.dist)} /> */}
     </>
   );

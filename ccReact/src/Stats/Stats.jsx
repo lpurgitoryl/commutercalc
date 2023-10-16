@@ -3,7 +3,7 @@ import ThemeAndFormContext from "../store/ThemeAndForm-context";
 import isEmpty from "lodash/isEmpty";
 import classes from "./Stats.module.css";
 import Data from "../Data/Data";
-import placeHolder from "../assets/formPlaceHolder.svg";
+// import placeHolder from "../assets/formPlaceHolder.svg";
 
 function Stats() {
   const ctx = useContext(ThemeAndFormContext);
@@ -78,7 +78,7 @@ function Stats() {
         {isEmpty(ctx.vehicle) ? (
           <>
             <h1>Fill out the form above for infomation about your commute!</h1>
-            <img className={classes.icon} src={placeHolder}></img>
+            <img className={classes.icon} src="/assets/email.svg"></img>
           </>
         ) : (
           <>

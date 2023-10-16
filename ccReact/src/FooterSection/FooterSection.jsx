@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import ThemeAndFormContext from "../store/ThemeAndForm-context.jsx";
 import classes from "./FooterSection.module.css";
-import github from "../assets/github.svg";
-import linkedIn from "../assets/linkedin.svg";
-import email from "../assets/email.svg";
+// import github from "/assets/github.svg";
+// import linkedIn from "/assets/linkedin.svg";
+// import email from "/assets/email.svg";
 
 function FooterSection() {
   const [color, setColor] = useState([]);
@@ -28,21 +28,21 @@ function FooterSection() {
               rel="noreferrer"
               href="https://www.linkedin.com/in/nicoleb-garcia/"
             >
-              <img src={linkedIn} alt="icon" className={classes.icon} />
+              <img src="/assets/linkedIn.svg" alt="icon" className={classes.icon} />
             </a>
             <a
               target="_blank"
               rel="noreferrer"
               href="https://github.com/lpurgitoryl"
             >
-              <img className={classes.icon} src={github} alt="icon" />
+              <img className={classes.icon} src="/assets/github.svg" alt="icon" />
             </a>
             <a
               href="mailto:ngarc084@ucr.edu"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img className={classes.icon} src={email} alt="icon" />
+              <img className={classes.icon} src="/assets/email.svg" alt="icon" />
             </a>
           </div>
         </div>
