@@ -3,7 +3,7 @@ import ThemeAndFormContext from "../store/ThemeAndForm-context";
 import classes from "./RouteMap.module.css";
 import isEmpty from "lodash/isEmpty";
 // lol this isnt my token pls dont abuse it
-const token = import.meta.env.VITE_API_TOKEN;
+const token = "pk.eyJ1IjoiYXlhYW56YXZlcmkiLCJhIjoiY2ttZHVwazJvMm95YzJvcXM3ZTdta21rZSJ9.WMpQsXd5ur2gP8kFjpBo8g";
 mapboxgl.accessToken = token;
 
 let map;
