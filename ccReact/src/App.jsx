@@ -12,8 +12,7 @@ import RouteMap from "./RouteMap/RouteMap";
 import Stats from "./Stats/Stats";
 import isEmpty from "lodash/isEmpty";
 
-const publicToken =
-  "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
+const publicToken = import.meta.env.VITE_API_TOKEN;
 
 function App() {
   const [color, setColor] = useState("light");
