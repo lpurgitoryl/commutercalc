@@ -83,7 +83,7 @@ function Stats() {
         ) : (
           <>
             <div className={classes.container}>
-              <div className={classes.wrapper}>
+              <div className={classes.inputWrapper}>
                 <input
                   className={classes.stats}
                   type="number"
@@ -95,11 +95,11 @@ function Stats() {
                 />
                 <h3>Price Per Gallon@</h3>
               </div>
-              <div className={classes.wrapper}>
+              <div className={classes.inputWrapper}>
                 <input
                   className={classes.stats}
                   type="number"
-                  placeholder="25"
+                  placeholder={ctx.vehicle.comb08}
                   step="1"
                   min="1"
                   max="1000"
@@ -107,7 +107,30 @@ function Stats() {
                 />
                 <h3>Miles Per Gallon@</h3>
               </div>
-              <Data mpg={currMPG} dist={miles} gasPrice={gasPrice} />
+              <div className={classes.dataWrapper}>
+                <h3>Single Trip </h3>
+                <Data
+                  mpg={currMPG}
+                  dist={miles}
+                  gasPrice={gasPrice}
+                  co2={ctx.vehicle.co2TailpipeGpm}
+                  min={min}
+                  hour={hour}
+                  RTT={false}
+                />
+              </div>
+              <div className={classes.dataWrapper}>
+                <h3>Round Trip </h3>
+                <Data
+                  mpg={currMPG}
+                  dist={miles * 2}
+                  gasPrice={gasPrice}
+                  co2={ctx.vehicle.co2TailpipeGpm}
+                  min={min}
+                  hour={hour}
+                  RTT={true}
+                />
+              </div>
             </div>
           </>
         )}

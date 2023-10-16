@@ -20,18 +20,28 @@ input[type="number"].stats, .stats{
   font-size: xx-large;
   background: transparent;
   border-color: transparent;
-  /* color: white; */
+  color: inherit;
 }
 input:focus{
   outline: none;
   /* color: white; */
 }
 
-.wrapper{
+.inputWrapper{
   align-items: center;
   display: flex;
   justify-content: center;
   align-content: center;
   flex-wrap: wrap;
   flex-direction: row-reverse;
+}
+
+.dataWrapper{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  width: 100%;
 }

@@ -2,6 +2,7 @@ import { useState, createContext, useEffect } from "react";
 import isEqual from "lodash/isEqual";
 import isEmpty from "lodash/isEmpty";
 import { waitFor } from "poll-until-promise";
+import { toast } from "react-toastify";
 
 const ThemeAndFormContext = createContext({
   theme: "light",
@@ -42,6 +43,16 @@ export function ThemeAndFormContextProvider(props) {
     if (isEqual(userData, formData)) {
       console.log("omg twins");
       console.log("no new data set");
+      toast.success("Scroll for Commute Data!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
     } else {
       validateUserData(formData);
       setUserData(formData);

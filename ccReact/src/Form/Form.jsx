@@ -241,7 +241,7 @@ function Form(props) {
           </div>
         </div>
 
-        <div className={classes.inputField}>
+        {/* <div className={classes.inputField}>
           Round trip?
           <div>
             <label htmlFor="yes">Yes</label>
@@ -273,7 +273,7 @@ function Form(props) {
             defaultValue="1"
             className={ctx.invalidTrips ? classes.err : null}
           />
-        </div>
+        </div> */}
 
         <div className={classes.inputField}>
           <button
