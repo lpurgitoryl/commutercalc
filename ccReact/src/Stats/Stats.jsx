@@ -3,13 +3,17 @@ import ThemeAndFormContext from "../store/ThemeAndForm-context";
 import isEmpty from "lodash/isEmpty";
 import classes from "./Stats.module.css";
 import Data from "../Data/Data";
-import placeHolder from "../assets/formPlaceHolder.svg"
+import placeHolder from "../assets/formPlaceHolder.svg";
 
 function Stats() {
   const ctx = useContext(ThemeAndFormContext);
   const [hour, setHour] = useState("");
   const [min, setMin] = useState("");
   const [miles, setMiles] = useState("");
+  const [gasPrice, setGas] = useState("5.23");
+  const [currMPG, setCurrMPG] = useState(
+    isEmpty(ctx.vehicle) ? "25" : ctx.vehicle.comb08
+  );
 
   function parseCommuteTime(time) {
     time = time.split(" ");
@@ -49,16 +53,63 @@ function Stats() {
     parseCommuteDistance(ctx.commuteDistance);
   }, [ctx.commuteTime, ctx.commuteDistance]);
 
+  function gasHandler(e) {
+    if (isEmpty(e.target.value)) {
+      console.log(`gas price changed to default`);
+      setGas("5.23");
+      return;
+    }
+    setGas(e.target.value);
+    console.log(`gas price changed to: ${e.target.value}`);
+  }
+
+  function mpgHandler(e) {
+    if (isEmpty(e.target.value)) {
+      console.log(`mpg changed to default`);
+      setCurrMPG(ctx.vehicle.comb08);
+      return;
+    }
+    setCurrMPG(e.target.value);
+    console.log(`curr mpg changed to: ${e.target.value}`);
+  }
   return (
     <>
       <div className={classes.container}>
         {isEmpty(ctx.vehicle) ? (
           <>
-          <h1>Fill out the form above for infomation about your commute!</h1>
-          <img className={classes.icon}src={placeHolder}></img>
+            <h1>Fill out the form above for infomation about your commute!</h1>
+            <img className={classes.icon} src={placeHolder}></img>
           </>
         ) : (
-          <Data mpg={ctx.vehicle.comb08} dist={miles} />
+          <>
+            <div className={classes.container}>
+              <div className={classes.wrapper}>
+                <input
+                  className={classes.stats}
+                  type="number"
+                  placeholder="5.23"
+                  step="0.01"
+                  min="2"
+                  max="100"
+                  onChange={gasHandler}
+                />
+                <h3>Price Per Gallon@</h3>
+              </div>
+              <div className={classes.wrapper}>
+                <input
+                  className={classes.stats}
+                  type="number"
+                  placeholder="25"
+                  step="1"
+                  min="1"
+                  max="1000"
+                  onChange={mpgHandler}
+                />
+                <h3>Miles Per Gallon@</h3>
+              </div>
+              <Data mpg={currMPG} dist={miles} gasPrice={gasPrice} />
+            </div>
+          </>
         )}
       </div>
     </>
