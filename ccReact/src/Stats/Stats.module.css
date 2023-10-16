@@ -13,8 +13,8 @@
   height: 50vh;
 }
 
-input[type="number"].stats, .stats{
-
+input[type="number"].stats,
+.stats {
   width: 6rem;
   height: 8rem;
   font-size: xx-large;
@@ -22,12 +22,12 @@ input[type="number"].stats, .stats{
   border-color: transparent;
   color: inherit;
 }
-input:focus{
+input:focus {
   outline: none;
   /* color: white; */
 }
 
-.inputWrapper{
+.inputWrapper {
   align-items: center;
   display: flex;
   justify-content: center;
@@ -36,7 +36,7 @@ input:focus{
   flex-direction: row-reverse;
 }
 
-.dataWrapper{
+.dataWrapper {
   align-items: center;
   display: flex;
   justify-content: center;

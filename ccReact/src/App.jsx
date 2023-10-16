@@ -15,7 +15,6 @@ import isEmpty from "lodash/isEmpty";
 const publicToken =
   "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
 
-
 function App() {
   const [color, setColor] = useState("light");
   const ctx = useContext(ThemeAndFormContext);
@@ -46,7 +45,7 @@ function App() {
       return;
     }
 
-    if(!isEmpty(ctx.vehicle)){
+    if (!isEmpty(ctx.vehicle)) {
       toast.success("Commute Data Below!", {
         position: "top-center",
         autoClose: 5000,
@@ -84,13 +83,13 @@ function App() {
             {ctx.invalidLocA || ctx.invalidLocB || ctx.invalidTrips ? (
               <a className="error">Please revise the following fields.</a>
             ) : null}
-            <Form token={publicToken}/>
+            <Form token={publicToken} />
           </Section>
           <Section>
-            <RouteMap/>
+            <Stats />
           </Section>
           <Section>
-            <Stats/>
+            <RouteMap />
           </Section>
         </main>
         <FooterSection></FooterSection>

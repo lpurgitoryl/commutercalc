@@ -50,7 +50,7 @@ function RouteMap() {
         accessToken: token,
         controls: {
           inputs: false,
-          instructions: false
+          instructions: false,
         },
         interactive: false,
       });
@@ -60,6 +60,12 @@ function RouteMap() {
     }
   }, [ctx.commuteData]);
 
-  return <div className={classes.wrapper} id="map" onChange={setTimeout(ctx.domChange, 1500)}/>;
+  return (
+    <div
+      className={classes.wrapper}
+      id="map"
+      onChange={setTimeout(ctx.domChange, 1500)}
+    />
+  );
 }
 export default RouteMap;

@@ -52,7 +52,7 @@ export function ThemeAndFormContextProvider(props) {
         draggable: true,
         progress: undefined,
         theme: "colored",
-      })
+      });
     } else {
       validateUserData(formData);
       setUserData(formData);
@@ -77,7 +77,11 @@ export function ThemeAndFormContextProvider(props) {
     }
 
     // if both locations are equal
-    if( !isEmpty(userData.locA) && !isEmpty(userData.locB) && isEqual(userData.locA,userData.locB) ){
+    if (
+      !isEmpty(userData.locA) &&
+      !isEmpty(userData.locB) &&
+      isEqual(userData.locA, userData.locB)
+    ) {
       setIsValidLocB(true);
       console.log("Same Location!! LOCB is invalid");
     }
@@ -196,8 +200,7 @@ export function ThemeAndFormContextProvider(props) {
     }
 
     //grab fuel econ data too
-      grabFuelEconData();
-
+    grabFuelEconData();
   }, [context.commuteData]);
 
   return (

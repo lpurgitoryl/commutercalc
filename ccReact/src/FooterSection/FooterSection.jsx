@@ -1,7 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import ThemeAndFormContext from "../store/ThemeAndForm-context.jsx";
-import ToggleSwitch from "../Toggle/ToggleSwitch.jsx";
 import classes from "./FooterSection.module.css";
+import github from "../assets/github.svg";
+import linkedIn from "../assets/linkedin.svg";
+import email from "../assets/email.svg";
 
 function FooterSection() {
   const [color, setColor] = useState([]);
@@ -18,43 +20,29 @@ function FooterSection() {
   return (
     <footer>
       <div className={color}>
-        <div className="main-container">
-          <h2 className="">
-            Social
-          </h2>
-          <div className="Social">
+        <div className={classes.foot}>
+          <h2>Info</h2>
+          <div>
             <a
               target="_blank"
               rel="noreferrer"
               href="https://www.linkedin.com/in/nicoleb-garcia/"
             >
-              <img
-                className="main-footer__icon"
-                src="./assets/png/linkedin-ico.png"
-                alt="icon"
-              />
+              <img src={linkedIn} alt="icon" className={classes.icon} />
             </a>
             <a
               target="_blank"
               rel="noreferrer"
               href="https://github.com/lpurgitoryl"
             >
-              <img
-                className="main-footer__icon"
-                src="./assets/png/github-ico.png"
-                alt="icon"
-              />
+              <img className={classes.icon} src={github} alt="icon" />
             </a>
             <a
               href="mailto:ngarc084@ucr.edu"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img
-                className="main-footer__icon"
-                src="./assets/png/email.png"
-                alt="icon"
-              />
+              <img className={classes.icon} src={email} alt="icon" />
             </a>
           </div>
         </div>
@@ -69,7 +57,6 @@ function FooterSection() {
             Nicole G. (lpurgitoryl)
           </a>
         </div>
-
       </div>
     </footer>
   );
