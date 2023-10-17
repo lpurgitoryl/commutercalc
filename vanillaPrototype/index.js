@@ -10,7 +10,7 @@ var makeURL = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/make?year=";
 var modelURL = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/model?year=";
 const form = document.querySelector("form");
 const publicToken =
-  "pk.eyJ1IjoibHB1cmdzbCIsImEiOiJjbG42aXB2cWYwNGFjMmxwaXp0bXY4dGVrIn0.5e9pBlHJvQPcf5mD8t-Z2w";
+  "PUTMAPBOXTOKEN KEY HERE";
 var yearSelected = false;
 var makeSelected = false;
 var travelHours = "";
