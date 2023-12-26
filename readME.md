@@ -86,17 +86,11 @@ CommuterCalc came about becuase I wanted to know how much my commute to school c
 ### Built With
 
 [![React][React.js]][React-url]
-
 [![Mapbox][Mapbox]][Mapbox-url]
-
 [![Vite][Vite]][Vite-url]
-
 [![Vercel][Vercel]][Vercel-url]
-
 ![HTML]
-
 ![CSS]
-
 [![Prettier][Prettier]][Prettier-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
